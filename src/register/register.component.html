@@ -1,0 +1,18 @@
+<div class="register-container">
+  <h2>Crear cuenta</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="username" placeholder="Nombre de usuario *" />
+    <input type="email" formControlName="email" placeholder="Correo electrónico *" />
+    <input type="password" formControlName="password" placeholder="Contraseña *" />
+
+    <div class="role-buttons">
+      <button type="button" [ngClass]="{'active': selectedRole === 'Paciente'}" (click)="selectRole('Paciente')">Paciente</button>
+      <button type="button" [ngClass]="{'active': selectedRole === 'Médico'}" (click)="selectRole('Médico')">Médico</button>
+    </div>
+
+    <button type="submit">Registrarse</button>
+  </form>
+
+  <a routerLink="/">Volver al inicio</a>
+</div>
