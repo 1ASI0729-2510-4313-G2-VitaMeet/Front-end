@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="login.component.css">
+  <!-- You might want to use a specific font, e.g., from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="page-wrapper">
+  <div class="logo-placeholder">
+    <!-- Simulate the logo shape. You'd use an <img> or SVG here -->
+    <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 10V40M50 60V90M10 50H40M60 50H90M50 50L40 45L30 50L40 55L50 50Z" stroke="#26A69A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40 50L50 45L60 50L50 55L40 50Z" fill="#26A69A"/>
+      <path d="M35 50H45L50 47L55 50H65" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="login-container">
+    <h2>Login to your Account</h2>
+
+    <!-- This is your original Angular form structure -->
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div>
+        <label for="username">Email</label> <!-- Changed from "Usuario" for image match -->
+        <input type="text" id="username" name="username" [(ngModel)]="username" required />
+      </div>
+      <div>
+        <label for="password">Password</label> <!-- Changed from "Contraseña" for image match -->
+        <input type="password" id="password" name="password" [(ngModel)]="password" required />
+      </div>
+      <button type="submit" [disabled]="!loginForm.valid">Login</button> <!-- Changed from "Iniciar Sesión" -->
+    </form>
+    <!-- End of your original form structure -->
+
+    <div class="extra-links">
+      <a href="#">Register user</a>
+      <a href="#">Back to Home</a>
+    </div>
+
+    <!-- Error message placeholder -->
+    <!-- <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p> -->
+    <!-- For static demo, you can show an example error -->
+    <!-- <p class="error">This is an example error message.</p> -->
+  </div>
+</div>
+
+<footer>
+  © 2025 MetaDevs. All rights reserved.
+</footer>
+
+</body>
+</html>
