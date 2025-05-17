@@ -1,15 +1,5 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <link rel="stylesheet" href="login.component.css">
-  <!-- You might want to use a specific font, e.g., from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
+
 
 <div class="page-wrapper">
   <div class="logo-placeholder">
@@ -23,36 +13,21 @@
 
   <div class="login-container">
     <h2>Login to your Account</h2>
-
-    <!-- This is your original Angular form structure -->
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <div>
-        <label for="username">Email</label> <!-- Changed from "Usuario" for image match -->
-        <input type="text" id="username" name="username" [(ngModel)]="username" required />
-      </div>
-      <div>
-        <label for="password">Password</label> <!-- Changed from "Contraseña" for image match -->
-        <input type="password" id="password" name="password" [(ngModel)]="password" required />
-      </div>
-      <button type="submit" [disabled]="!loginForm.valid">Login</button> <!-- Changed from "Iniciar Sesión" -->
-    </form>
-    <!-- End of your original form structure -->
-
-    <div class="extra-links">
-      <a href="#">Register user</a>
-      <a href="#">Back to Home</a>
+      <form (ngSubmit)="login(username.value, password.value)">
+        <div>
+          <label for="username">Usuario</label>
+          <input id="username" #username type="text" required />
+        </div>
+        <div>
+          <label for="password">Contraseña</label>
+          <input id="password" #password type="password" required />
+        </div>
+        <button type="submit">Iniciar Sesión</button>
+        <div class="extra-links">
+          <a routerLink="/register">¿Aún no tienes una cuenta? Regístrate</a>
+          <a href="#">Back to Home</a>
+        </div>
+      </form>
     </div>
 
-    <!-- Error message placeholder -->
-    <!-- <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p> -->
-    <!-- For static demo, you can show an example error -->
-    <!-- <p class="error">This is an example error message.</p> -->
   </div>
-</div>
-
-<footer>
-  © 2025 MetaDevs. All rights reserved.
-</footer>
-
-</body>
-</html>

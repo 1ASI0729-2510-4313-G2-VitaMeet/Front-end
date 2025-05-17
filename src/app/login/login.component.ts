@@ -1,38 +1,30 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-
+import { LoginService } from './service/login.service';
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  imports: [
+    FormsModule,
+    RouterLink
+  ]
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  errorMessage = '';
-  successMessage = '';
+  constructor(private loginService: LoginService, private router: Router) {}
 
-  constructor(private http: HttpClient) {}
-
-  onSubmit() {
-    const newUser = { username: this.username, password: this.password };
-
-    this.http.post('http://localhost:3000/users', newUser).subscribe({
-      next: () => {
-        this.successMessage = 'Usuario guardado exitosamente';
-        this.errorMessage = '';
-        this.username = '';
-        this.password = '';
+  login(email: string, password: string) {
+    this.loginService.validateCredentials(email, password).subscribe({
+      next: (users: any[]) => {
+        if (users.length > 0) {
+          alert('Inicio de sesión exitoso');
+          this.router.navigate(['/dates-management']);
+        } else {
+          alert('Credenciales incorrectas');
+        }
       },
-      error: (err) => {
-        console.error(err);
-        this.errorMessage = 'Error al guardar el usuario';
-        this.successMessage = '';
-      }
+      error: (err: any) => console.error('Error al validar credenciales:', err),
     });
   }
 }
