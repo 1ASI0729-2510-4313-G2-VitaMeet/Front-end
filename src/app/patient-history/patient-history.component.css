@@ -1,0 +1,38 @@
+.patient-history-container {
+  background-color: #FFFFFF;
+  padding: 35px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.patient-history-container h2 {
+  color: #2C3E50;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.patient-history-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.patient-history-container li {
+  border: 1px solid #DDE2E8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  background-color: #F9F9F9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.patient-history-container li p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}

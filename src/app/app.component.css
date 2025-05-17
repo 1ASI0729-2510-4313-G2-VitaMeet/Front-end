@@ -1,0 +1,43 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3F72AF;
+  padding: 10px 20px;
+  color: white;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left .product-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-right .navbar-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar-right .navbar-link:hover {
+  text-decoration: underline;
+}
+
+.navbar-right .logout-button {
+  background-color: #D9534F;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-right .logout-button:hover {
+  background-color: #C9302C;
+}

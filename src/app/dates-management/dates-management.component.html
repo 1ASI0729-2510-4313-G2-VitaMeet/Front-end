@@ -1,0 +1,13 @@
+
+<div class="appointments-container">
+  <h2>Gestión de Citas Médicas</h2>
+  <ul>
+    <li *ngFor="let appointment of appointments">
+      <p><strong>Médico:</strong> {{ appointment.doctor }}</p>
+      <p><strong>Fecha:</strong> {{ appointment.date }}</p>
+      <p><strong>Hora:</strong> {{ appointment.time }}</p>
+      <button (click)="rescheduleAppointment(appointment.id)">Reprogramar</button>
+      <button (click)="cancelAppointment(appointment.id)">Cancelar</button>
+    </li>
+  </ul>
+</div>

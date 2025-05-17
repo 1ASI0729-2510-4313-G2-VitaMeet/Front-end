@@ -1,0 +1,38 @@
+{
+  "appointments": [
+    {
+      "id": "2",
+      "doctor": "Dra. Ana López",
+      "date": "2025-05-10",
+      "time": "2:00 PM"
+    },
+    {
+      "id": "3",
+      "doctor": "Dr. Carlos Gómez",
+      "date": "2023-11-03",
+      "time": "4:00 PM"
+    }
+  ],
+  "medicalHistory": [
+    {
+      "id": 1,
+      "name": "Juan Pérez",
+      "age": 45,
+      "phone": "555-1234",
+      "address": "Calle Falsa 123",
+      "diagnosis": "Hipertensión",
+      "treatment": "Medicamentos diarios",
+      "date": "2023-10-01"
+    },
+    {
+      "id": 2,
+      "name": "María García",
+      "age": 30,
+      "phone": "555-5678",
+      "address": "Avenida Siempre Viva 456",
+      "diagnosis": "Diabetes",
+      "treatment": "Insulina",
+      "date": "2023-09-15"
+    }
+  ]
+}
