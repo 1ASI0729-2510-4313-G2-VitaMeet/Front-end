@@ -1,0 +1,49 @@
+<div class="scheduler-container">
+  <section class="date-section">
+    <h2>Fecha</h2>
+    <input type="date" [(ngModel)]="selectedDate" [min]="minDate" />
+  </section>
+  <section class="time-section">
+    <h2>Hora</h2>
+    <div class="times">
+      <button *ngFor="let t of times"
+              [class.selected]="selectedTime === t"
+              (click)="selectedTime = t">
+        {{ t }}
+      </button>
+    </div>
+  </section>
+  <section class="doctors-section">
+    <h2>Doctores</h2>
+    <div class="doctor-search">
+      <input type="text" placeholder="Buscar doctor..." [(ngModel)]="search" />
+      <button title="Filtrar"><span>&#128269;</span></button>
+    </div>
+    <div class="doctors-list">
+      <div *ngFor="let doc of filteredDoctors" class="doctor-card">
+        <div>
+          <strong>{{ doc.name }}</strong>
+          <p>{{ doc.specialty }}</p>
+        </div>
+        <button (click)="selectDoctor(doc)" [class.selected]="selectedDoctor?.id === doc.id">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="details-section">
+    <h2>Detalles de la cita</h2>
+    <div class="summary">
+      <div>Hora: {{ selectedTime || '----' }}</div>
+      <div>Doctor: {{ selectedDoctor?.name || '--------' }}</div>
+      <div>Fecha: {{ selectedDate || '--/--/----' }}</div>
+      <div>Lugar: {{ place }}</div>
+    </div>
+    <div class="actions">
+      <button (click)="cancel()">Cancelar y salir</button>
+      <button [disabled]="!selectedDate || !selectedTime || !selectedDoctor" (click)="confirm()">
+        Confirmar cita
+      </button>
+    </div>
+  </section>
+</div>

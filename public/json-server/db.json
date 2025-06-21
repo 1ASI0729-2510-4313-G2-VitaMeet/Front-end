@@ -1,5 +1,4 @@
 {
-  "login": [],
   "register": [
     {
       "id": "5762",
@@ -7,20 +6,69 @@
       "email": "fab123@gmail.com",
       "password": "1234",
       "role": "Médico"
+    },
+    {
+      "id": "ba72",
+      "username": "demo",
+      "email": "demo@demo",
+      "password": "1234",
+      "role": "Médico"
+    },
+    {
+      "id": "6f0a",
+      "username": "demo2",
+      "email": "demo2",
+      "password": "1234",
+      "role": "Paciente"
+    },
+    {
+      "id": "79b1",
+      "username": "demo",
+      "email": "demo2",
+      "password": "12345",
+      "role": "Paciente"
+    },
+    {
+      "id": "7997",
+      "username": "demo1",
+      "email": "demo1",
+      "password": "12345",
+      "role": "Médico"
     }
   ],
   "appointments": [
     {
-      "id": "2",
-      "doctor": "Dr. Juan Perez",
-      "date": "2025-05-18",
-      "time": "5:00 PM"
+      "id": "6b22",
+      "date": "2025-07-09",
+      "time": "09:00",
+      "doctor": {
+        "id": 2,
+        "name": "Dr. Juan Pérez",
+        "specialty": "Dermatología"
+      },
+      "place": "Clínica Central"
     },
     {
-      "id": "2",
-      "doctor": "Dr. Eddie Chavez",
-      "date": "2025-05-19",
-      "time": "3:00 PM"
+      "id": "dc52",
+      "date": "2025-07-02",
+      "time": "11:00",
+      "doctor": {
+        "id": 1,
+        "name": "Dr. Ana López",
+        "specialty": "Cardiología"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "8738",
+      "date": "2033-08-25",
+      "time": "15:00",
+      "doctor": {
+        "id": 1,
+        "name": "Dr. Ana López",
+        "specialty": "Cardiología"
+      },
+      "place": "VitaMeet Clinic"
     }
   ],
   "medicalHistory": [

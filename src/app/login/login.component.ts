@@ -26,7 +26,7 @@ export class LoginComponent {
           if (user.role === 'Médico') {
             this.router.navigate(['/dates-management']);
           } else if (user.role === 'Paciente') {
-            alert('Inicio de sesión exitoso, pero no hay contenido para pacientes.');
+            this.router.navigate(['/patients-dates-management-list']);
           }
         } else {
           alert('Credenciales incorrectas.');

@@ -14,7 +14,7 @@ import {RouterLink} from '@angular/router';
   ]
 })
 export class DatesManagementComponent implements OnInit {
-  appointments: { id: number; doctor: string; date: string; time: string }[] = [];
+  appointments: { id: number; doctor: {name:string}; date: string; time: string }[] = [];
 
   constructor(private datesService: DatesManagementService) {}
 
