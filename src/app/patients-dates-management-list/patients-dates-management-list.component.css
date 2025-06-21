@@ -5,24 +5,25 @@
   background: #1d4ed8;
   color: #fff;
   padding: 1rem 2rem;
-  border-radius: 12px;
+  border-radius: 1px;
   margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
 }
 
 .navbar-title {
   font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .icon-btn {
-  background: none;
+  background: #fff;
   border: none;
   cursor: pointer;
   padding: 0.3rem;
@@ -33,20 +34,74 @@
 }
 
 .icon-btn:hover {
-  background: #3b82f6;
+  background: #e0e7ff;
 }
 
 .logout-btn {
-  background: #dc2626;
+  background: #2563eb;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 0.5rem 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .logout-btn:hover {
-  background: #b91c1c;
+  background: #2563eb;
+  color: #fff;
+}
+.appointments-list {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+  margin-bottom: 2rem;
+}
+
+.appointments-list h2 {
+  color: #1d4ed8;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.appointments-list button {
+  background: #1d4ed8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+  transition: background 0.2s;
+}
+
+.appointments-list button:hover {
+  background: #2563eb;
+}
+
+.appointments-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.appointments-list li {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(30, 64, 175, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1rem;
+}
+
+.appointments-list li strong {
+  color: #1d4ed8;
+  font-weight: 600;
 }
