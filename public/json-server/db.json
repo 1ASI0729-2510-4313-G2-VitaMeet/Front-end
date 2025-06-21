@@ -17,28 +17,6 @@
   ],
   "appointments": [
     {
-      "id": "dc52",
-      "date": "2025-07-02",
-      "time": "11:00",
-      "doctor": {
-        "id": 1,
-        "name": "Dr. Ana López",
-        "specialty": "Cardiología"
-      },
-      "place": "VitaMeet Clinic"
-    },
-    {
-      "id": "c5d5",
-      "date": "2030-08-14",
-      "time": "08:00",
-      "doctor": {
-        "id": 1,
-        "name": "Dr. Ana López",
-        "specialty": "Cardiología"
-      },
-      "place": "VitaMeet Clinic"
-    },
-    {
       "id": "f88f",
       "date": "2025-06-26",
       "time": "09:00",
@@ -68,6 +46,17 @@
         "id": 2,
         "name": "Dr. Juan Pérez",
         "specialty": "Dermatología"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "1ec5",
+      "date": "2025-07-11",
+      "time": "15:00",
+      "doctor": {
+        "id": 1,
+        "name": "Dr. Ana López",
+        "specialty": "Cardiología"
       },
       "place": "VitaMeet Clinic"
     }
