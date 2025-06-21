@@ -19,6 +19,10 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private router: Router) {}
 
   login() {
+    if (!this.email.trim() || !this.password.trim()) {
+      alert('Debes ingresar email y contraseña.');
+      return;
+    }
     this.loginService.validateCredentials(this.email, this.password).subscribe({
       next: (users) => {
         if (users.length > 0) {

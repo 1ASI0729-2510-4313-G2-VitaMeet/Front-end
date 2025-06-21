@@ -1,31 +1,10 @@
 {
   "register": [
     {
-      "id": "5762",
-      "username": "Fabian",
-      "email": "fab123@gmail.com",
-      "password": "1234",
-      "role": "Médico"
-    },
-    {
-      "id": "ba72",
-      "username": "demo",
-      "email": "demo@demo",
-      "password": "1234",
-      "role": "Médico"
-    },
-    {
       "id": "6f0a",
       "username": "demo2",
       "email": "demo2",
       "password": "1234",
-      "role": "Paciente"
-    },
-    {
-      "id": "79b1",
-      "username": "demo",
-      "email": "demo2",
-      "password": "12345",
       "role": "Paciente"
     },
     {
@@ -38,17 +17,6 @@
   ],
   "appointments": [
     {
-      "id": "6b22",
-      "date": "2025-07-09",
-      "time": "09:00",
-      "doctor": {
-        "id": 2,
-        "name": "Dr. Juan Pérez",
-        "specialty": "Dermatología"
-      },
-      "place": "Clínica Central"
-    },
-    {
       "id": "dc52",
       "date": "2025-07-02",
       "time": "11:00",
@@ -60,13 +28,46 @@
       "place": "VitaMeet Clinic"
     },
     {
-      "id": "8738",
-      "date": "2033-08-25",
-      "time": "15:00",
+      "id": "c5d5",
+      "date": "2030-08-14",
+      "time": "08:00",
       "doctor": {
         "id": 1,
         "name": "Dr. Ana López",
         "specialty": "Cardiología"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "f88f",
+      "date": "2025-06-26",
+      "time": "09:00",
+      "doctor": {
+        "id": 3,
+        "name": "Dr. María García",
+        "specialty": "Pediatría"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "1f42",
+      "date": "2025-06-28",
+      "time": "13:00",
+      "doctor": {
+        "id": 1,
+        "name": "Dr. Ana López",
+        "specialty": "Cardiología"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "3eab",
+      "date": "2025-06-27",
+      "time": "15:00",
+      "doctor": {
+        "id": 2,
+        "name": "Dr. Juan Pérez",
+        "specialty": "Dermatología"
       },
       "place": "VitaMeet Clinic"
     }

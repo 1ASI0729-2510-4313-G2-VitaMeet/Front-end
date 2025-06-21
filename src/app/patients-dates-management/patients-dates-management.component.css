@@ -99,7 +99,7 @@ input[type="text"] {
 
 input[type="date"]:focus,
 input[type="text"]:focus {
-  border: 1.5px solid #6366f1;
+  border: 1.5px solid #2563eb;
   outline: none;
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.10);
 }
@@ -125,16 +125,16 @@ input[type="text"]:focus {
 }
 
 .times button.selected {
-  background: #6366f1;
+  background: #2563eb;
   color: #fff;
-  border: 1.5px solid #6366f1;
+  border: 1.5px solid #2563eb;
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.13);
 }
 
 .times button:hover:not(.selected),
 .times button:focus:not(.selected) {
   background: #e0e7ff;
-  border: 1.5px solid #6366f1;
+  border: 1.5px solid #2563eb;
 }
 
 .doctor-search {
@@ -150,7 +150,7 @@ input[type="text"]:focus {
 .doctor-search button {
   padding: 0.5rem 1rem;
   border: none;
-  background: #6366f1;
+  background: #2563eb;
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -160,7 +160,7 @@ input[type="text"]:focus {
 }
 
 .doctor-search button:hover {
-  background: #6366f1;
+  background: #2563eb;
   opacity: 0.92;
 }
 
@@ -207,7 +207,7 @@ input[type="text"]:focus {
   padding: 0.6rem 1.4rem;
   border: none;
   border-radius: 10px;
-  background: #6366f1;
+  background: #2563eb;
   color: #fff;
   font-weight: 600;
   font-size: 1rem;
@@ -223,7 +223,7 @@ input[type="text"]:focus {
 }
 
 .doctor-card button:hover:not(.selected) {
-  background: #6366f1;
+  background: #2563eb;
   opacity: 0.92;
 }
 
