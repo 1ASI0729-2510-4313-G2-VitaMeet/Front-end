@@ -13,6 +13,20 @@
       "email": "demo1",
       "password": "12345",
       "role": "Médico"
+    },
+    {
+      "id": "995a924a6e0a28",
+      "username": "fab",
+      "email": "fab",
+      "password": "fab123",
+      "role": "Paciente"
+    },
+    {
+      "id": "9d07fdc1bdf5c",
+      "username": "Masi",
+      "email": "masi2",
+      "password": "masi123",
+      "role": "Paciente"
     }
   ],
   "appointments": [
@@ -63,34 +77,39 @@
   ],
   "medicalHistory": [
     {
-      "id": "1",
-      "name": "Juan Pérez",
-      "age": 45,
-      "phone": "555-1234",
-      "address": "Calle Falsa 123",
-      "diagnosis": "Hipertensión",
-      "treatment": "Medicamentos diarios",
-      "date": "2023-10-01"
+      "id": "995a924a6e0a28",
+      "name": "fab",
+      "email": "fab",
+      "role": "Paciente",
+      "age": 23,
+      "phone": "99999999",
+      "address": "sdadas",
+      "diagnosis": "muerte",
+      "treatment": "no se",
+      "date": "2025-07-03"
     },
     {
-      "id": "2",
-      "name": "María García",
-      "age": 30,
-      "phone": "555-5678",
-      "address": "Avenida Siempre Viva 456",
-      "diagnosis": "Diabetes",
-      "treatment": "Insulina",
-      "date": "2023-09-15"
+      "id": "9d07fdc1bdf5c",
+      "name": "Masi",
+      "email": "masi2",
+      "role": "Paciente",
+      "age": 21,
+      "phone": "098",
+      "address": "dasd",
+      "diagnosis": "esquizo",
+      "treatment": "nada",
+      "date": "2025-06-21"
     },
     {
-      "id": "2",
-      "name": "María García",
-      "age": 30,
-      "phone": "555-5678",
-      "address": "Avenida Siempre Viva 456",
-      "diagnosis": "Diabetes",
-      "treatment": "Insulina",
-      "date": "2023-09-15"
+      "id": "6f0a",
+      "email": "demo2",
+      "role": "Paciente",
+      "age": 0,
+      "phone": "",
+      "address": "",
+      "diagnosis": "",
+      "treatment": "",
+      "date": ""
     }
   ]
 }

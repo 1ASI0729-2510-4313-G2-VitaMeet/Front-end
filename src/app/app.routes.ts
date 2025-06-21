@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'dates-management', component: DatesManagementComponent },
   { path: 'patients-dates-management', component: PatientsDatesManagementComponent },
-  { path : 'patients-dates-management-list', component: PatientsDatesManagementListComponent },
+  { path: 'patients-dates-management-list', component: PatientsDatesManagementListComponent },
   { path: 'patient-history', component: PatientHistoryComponent },
   { path: 'profile', component: ProfilePageComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full'},

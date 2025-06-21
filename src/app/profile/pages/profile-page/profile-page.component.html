@@ -1,6 +1,5 @@
-
 <nav class="navbar">
-  <div class="navbar-title">Gestión de Citas</div>
+  <div class="navbar-title">VitaMeet</div>
   <div class="navbar-actions">
     <button class="icon-btn" title="Editar perfil">
       <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
@@ -25,7 +24,31 @@
     </div>
     <div class="form-group">
       <label>Rol:</label>
-      <input [(ngModel)]="profile.role" name="role" required />
+      <input [value]="profile.role" name="role" readonly disabled />
+    </div>
+    <div class="form-group">
+      <label>Edad:</label>
+      <input [(ngModel)]="profile.age" name="age" type="number" min="0" />
+    </div>
+    <div class="form-group">
+      <label>Teléfono:</label>
+      <input [(ngModel)]="profile.phone" name="phone" />
+    </div>
+    <div class="form-group">
+      <label>Dirección:</label>
+      <input [(ngModel)]="profile.address" name="address" />
+    </div>
+    <div class="form-group">
+      <label>Diagnóstico:</label>
+      <input [(ngModel)]="profile.diagnosis" name="diagnosis" />
+    </div>
+    <div class="form-group">
+      <label>Tratamiento:</label>
+      <input [(ngModel)]="profile.treatment" name="treatment" />
+    </div>
+    <div class="form-group">
+      <label>Fecha:</label>
+      <input [(ngModel)]="profile.date" name="date" type="date" />
     </div>
     <button type="submit" class="btn-primary">Guardar</button>
   </form>
@@ -33,6 +56,12 @@
     <p><strong>Nombre:</strong> {{ profile.name }}</p>
     <p><strong>Email:</strong> {{ profile.email }}</p>
     <p><strong>Rol:</strong> {{ profile.role }}</p>
+    <p><strong>Edad:</strong> {{ profile.age }}</p>
+    <p><strong>Teléfono:</strong> {{ profile.phone }}</p>
+    <p><strong>Dirección:</strong> {{ profile.address }}</p>
+    <p><strong>Diagnóstico:</strong> {{ profile.diagnosis }}</p>
+    <p><strong>Tratamiento:</strong> {{ profile.treatment }}</p>
+    <p><strong>Fecha:</strong> {{ profile.date }}</p>
     <button class="btn-primary" (click)="activarEdicion()">Editar</button>
   </div>
 </div>

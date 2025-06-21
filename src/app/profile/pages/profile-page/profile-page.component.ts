@@ -13,7 +13,7 @@ import { filter } from 'rxjs/operators';
   imports: [CommonModule, FormsModule, MatCardModule, NgOptimizedImage,]
 })
 export class ProfilePageComponent implements OnInit {
-  profile: Profile = { name: '', email: '', role: '' };
+  profile: Profile = { id: '', name: '', email: '', role: '' };
   editMode = false;
   longText = `have flu.`;
 
@@ -25,12 +25,13 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  guardarCambios() {
-    this.profileService.updateProfile(this.profile).subscribe(() => {
-      this.editMode = false;
-      alert('Perfil actualizado correctamente');
-    });
-  }
+guardarCambios() {
+  console.log('Guardando perfil:', this.profile);
+  this.profileService.updateProfile(this.profile).subscribe(() => {
+    this.editMode = false;
+    alert('Perfil actualizado correctamente');
+  });
+}
 
   activarEdicion() {
     this.editMode = true;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientHistoryService } from './service/patient-history.service';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import { Profile } from '../profile/services/profile.service';
 
 @Component({
   selector: 'app-patient-history',
@@ -13,7 +14,7 @@ import {RouterLink} from '@angular/router';
   ]
 })
 export class PatientHistoryComponent implements OnInit {
-  medicalHistory: { name: string; age: number; phone: string; address: string; diagnosis: string; treatment: string; date: string }[] = [];
+  patients: Profile[] = [];
 
   constructor(private patientHistoryService: PatientHistoryService) {}
 
@@ -23,7 +24,10 @@ export class PatientHistoryComponent implements OnInit {
 
   loadPatientHistory() {
     this.patientHistoryService.getPatientHistory().subscribe({
-      next: (data) => (this.medicalHistory = data),
+      next: (data) => {
+        // Filtra solo pacientes
+        this.patients = data.filter(p => p.role === 'Paciente');
+      },
       error: (err) => console.error('Error al cargar el historial de pacientes:', err),
     });
   }

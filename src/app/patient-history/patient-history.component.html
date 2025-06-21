@@ -11,14 +11,14 @@
 <div class="patient-history-container">
   <h2>Historial Médico</h2>
   <ul>
-    <li *ngFor="let record of medicalHistory">
-      <p><strong>Nombre:</strong> {{ record.name }}</p>
-      <p><strong>Edad:</strong> {{ record.age }}</p>
-      <p><strong>Teléfono:</strong> {{ record.phone }}</p>
-      <p><strong>Dirección:</strong> {{ record.address }}</p>
-      <p><strong>Diagnóstico:</strong> {{ record.diagnosis }}</p>
-      <p><strong>Tratamiento:</strong> {{ record.treatment }}</p>
-      <p><strong>Fecha:</strong> {{ record.date }}</p>
+    <li *ngFor="let patient of patients">
+      <p><strong>Nombre:</strong> {{ patient.name }}</p>
+      <p><strong>Edad:</strong> {{ patient.age }}</p>
+      <p><strong>Teléfono:</strong> {{ patient.phone }}</p>
+      <p><strong>Dirección:</strong> {{ patient.address }}</p>
+      <p><strong>Diagnóstico:</strong> {{ patient.diagnosis }}</p>
+      <p><strong>Tratamiento:</strong> {{ patient.treatment }}</p>
+      <p><strong>Fecha:</strong> {{ patient.date }}</p>
     </li>
   </ul>
 </div>
