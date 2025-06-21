@@ -1,0 +1,28 @@
+<div class="navbar">
+  <div class="navbar-left">
+    <span class="product-name">VitaMeet</span>
+  </div>
+  <div class="navbar-right">
+    <a routerLink="/patient-history" class="navbar-link">Historial del paciente</a>
+    <a routerLink="/dates-management" class="navbar-link">Gestión de citas</a>
+    <button routerLink="/login" class="logout-button">Cerrar sesión</button>
+  </div>
+</div>
+<div class="patient-history-container">
+  <h2>Historial Médico</h2>
+  <ul>
+    <li *ngFor="let record of medicalHistory">
+      <p><strong>Nombre:</strong> {{ record.name }}</p>
+      <p><strong>Edad:</strong> {{ record.age }}</p>
+      <p><strong>Teléfono:</strong> {{ record.phone }}</p>
+      <p><strong>Dirección:</strong> {{ record.address }}</p>
+      <p><strong>Diagnóstico:</strong> {{ record.diagnosis }}</p>
+      <p><strong>Tratamiento:</strong> {{ record.treatment }}</p>
+      <p><strong>Fecha:</strong> {{ record.date }}</p>
+    </li>
+  </ul>
+</div>
+
+<footer>
+  © 2025 MetaDevs. All rights reserved.
+</footer>

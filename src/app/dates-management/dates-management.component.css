@@ -1,0 +1,117 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3F72AF; /* Azul principal de shared_styles */
+  padding: 10px 20px;
+  color: white;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left .product-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-right .logout-button {
+  background-color: #D9534F; /* Rojo de shared_styles */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-right .logout-button:hover {
+  background-color: #C9302C; /* Rojo más oscuro para hover */
+}
+
+/* Contenedor principal */
+.appointments-container {
+  background-color: #FFFFFF;
+  padding: 35px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+h2 {
+  color: #2C3E50; /* Azul oscuro de shared_styles */
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Lista de citas */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #DDE2E8; /* Gris claro de shared_styles */
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  background-color: #F9F9F9; /* Fondo claro */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+li p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333; /* Gris oscuro */
+}
+
+button {
+  margin-right: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+button:first-of-type {
+  background-color: #3F72AF; /* Azul principal */
+  color: white;
+}
+
+button:last-of-type {
+  background-color: #D9534F; /* Rojo principal */
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar-link:hover {
+  text-decoration: underline;
+}
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 13px;
+  color: #555F6A; /* Muted color for footer */
+  box-sizing: border-box;
+}
