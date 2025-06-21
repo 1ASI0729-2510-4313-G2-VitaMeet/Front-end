@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
 import { LoginService } from './service/login.service';
+import {FormsModule} from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,19 +13,26 @@ import { LoginService } from './service/login.service';
   ]
 })
 export class LoginComponent {
+  email = '';
+  password = '';
+
   constructor(private loginService: LoginService, private router: Router) {}
 
-  login(email: string, password: string) {
-    this.loginService.validateCredentials(email, password).subscribe({
-      next: (users: any[]) => {
+  login() {
+    this.loginService.validateCredentials(this.email, this.password).subscribe({
+      next: (users) => {
         if (users.length > 0) {
-          alert('Inicio de sesión exitoso');
-          this.router.navigate(['/dates-management']);
+          const user = users[0];
+          if (user.role === 'Médico') {
+            this.router.navigate(['/dates-management']);
+          } else if (user.role === 'Paciente') {
+            alert('Inicio de sesión exitoso, pero no hay contenido para pacientes.');
+          }
         } else {
-          alert('Credenciales incorrectas');
+          alert('Credenciales incorrectas.');
         }
       },
-      error: (err: any) => console.error('Error al validar credenciales:', err),
+      error: (err) => console.error('Error al iniciar sesión:', err),
     });
   }
 }

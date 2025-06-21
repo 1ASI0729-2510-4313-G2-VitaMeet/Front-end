@@ -1,24 +1,58 @@
 {
-  "users": [
+  "login": [],
+  "register": [
+    {
+      "id": "5762",
+      "username": "Fabian",
+      "email": "fab123@gmail.com",
+      "password": "1234",
+      "role": "Médico"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "2",
+      "doctor": "Dr. Juan Perez",
+      "date": "2025-05-18",
+      "time": "5:00 PM"
+    },
+    {
+      "id": "2",
+      "doctor": "Dr. Eddie Chavez",
+      "date": "2025-05-19",
+      "time": "3:00 PM"
+    }
+  ],
+  "medicalHistory": [
     {
       "id": "1",
-      "username": "admin",
-      "password": "admin123"
+      "name": "Juan Pérez",
+      "age": 45,
+      "phone": "555-1234",
+      "address": "Calle Falsa 123",
+      "diagnosis": "Hipertensión",
+      "treatment": "Medicamentos diarios",
+      "date": "2023-10-01"
     },
     {
-      "id": "e480",
-      "username": "fab",
-      "password": "1234"
+      "id": "2",
+      "name": "María García",
+      "age": 30,
+      "phone": "555-5678",
+      "address": "Avenida Siempre Viva 456",
+      "diagnosis": "Diabetes",
+      "treatment": "Insulina",
+      "date": "2023-09-15"
     },
     {
-      "id": "163a",
-      "username": "fab.rey.2701@gmail.com",
-      "password": "12345"
-    },
-    {
-      "id": "2355",
-      "username": "ss",
-      "password": "dsd"
+      "id": "2",
+      "name": "María García",
+      "age": 30,
+      "phone": "555-5678",
+      "address": "Avenida Siempre Viva 456",
+      "diagnosis": "Diabetes",
+      "treatment": "Insulina",
+      "date": "2023-09-15"
     }
   ]
 }
