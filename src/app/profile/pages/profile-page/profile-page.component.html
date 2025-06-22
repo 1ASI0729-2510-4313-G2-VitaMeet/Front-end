@@ -22,6 +22,9 @@
         </div>
         <input #photoInput type="file" accept="image/*" (change)="onPhotoSelected($event)" style="display:none" />
         <button type="button" class="btn-photo" (click)="photoInput.click()">Cambiar foto</button>
+        <button type="button" class="btn-photo" (click)="mostrarInputUrl = !mostrarInputUrl">Pegar URL</button>
+        <input *ngIf="mostrarInputUrl" type="text" [(ngModel)]="urlFoto" name="urlFoto" placeholder="Pega la URL de la imagen" class="input-url-foto" />
+        <button *ngIf="mostrarInputUrl" type="button" class="btn-photo" (click)="setFotoUrl()">Usar URL</button>
         <button type="button" class="btn-photo" (click)="borrarFoto()" *ngIf="profile.photo">Borrar foto</button>
       </div>
       <div class="profile-fields">

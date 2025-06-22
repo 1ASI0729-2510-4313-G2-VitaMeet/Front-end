@@ -17,6 +17,8 @@ import { NgIf } from '@angular/common';
 export class ProfilePageComponent implements OnInit {
   profile: Profile = { id: '', fullname: '', email: '', role: '' };
   editMode = false;
+  mostrarInputUrl = false;
+  urlFoto = '';
 
   constructor(private profileService: ProfileService, public toast: ToastService) {}
 
@@ -61,5 +63,13 @@ export class ProfilePageComponent implements OnInit {
 
   borrarFoto() {
     this.profile.photo = undefined;
+  }
+
+  setFotoUrl() {
+    if (this.urlFoto) {
+      this.profile.photo = this.urlFoto;
+      this.mostrarInputUrl = false;
+      this.urlFoto = '';
+    }
   }
 }

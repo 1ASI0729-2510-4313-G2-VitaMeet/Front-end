@@ -23,8 +23,8 @@
     <!-- Paso 2: Formulario según rol -->
     <form *ngIf="role" (ngSubmit)="onRegister()" #registerForm="ngForm">
       <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" [(ngModel)]="username" required />
+        <label for="username">Full Name</label>
+        <input type="text" id="fullname" name="fullname" [(ngModel)]="fullname" required />
       </div>
       <div>
         <label for="email">Email</label>

@@ -13,7 +13,7 @@ import { ToastService } from '../shared/toast.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  username = '';
+  fullname = '';
   email = '';
   password = '';
   role = '';
@@ -30,7 +30,7 @@ export class RegisterComponent {
 
   onRegister() {
     const newUser: any = {
-      username: this.username,
+      fullname: this.fullname,
       email: this.email,
       password: this.password,
       role: this.role
@@ -46,7 +46,7 @@ export class RegisterComponent {
         this.toast.show('Usuario registrado exitosamente', 'success');
         this.successMessage = '';
         this.errorMessage = '';
-        this.username = '';
+        this.fullname = '';
         this.email = '';
         this.password = '';
         this.role = '';

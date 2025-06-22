@@ -82,4 +82,8 @@ export class PatientsDatesManagementComponent {
   cerrarSesion() {
     this.router.navigate(['/login']);
   }
+
+  irAListaCitas() {
+    this.router.navigate(['/patients-dates-management-list']);
+  }
 }

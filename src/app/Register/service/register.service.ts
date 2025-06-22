@@ -30,12 +30,16 @@ export class RegisterService {
       date: ''
     };
     if (role === 'Médico') {
-      // Guardar solo en doctors
-      return this.http.post('http://localhost:3000/doctors', userWithId);
+      // Guardar en doctors y en register
+      return forkJoin([
+        this.http.post('http://localhost:3000/doctors', userWithId),
+        this.http.post(this.apiUrl, userWithId)
+      ]);
     } else {
-      // Guardar en patients y en medicalHistory
+      // Guardar en patients, register y medicalHistory
       return forkJoin([
         this.http.post('http://localhost:3000/patients', userWithId),
+        this.http.post(this.apiUrl, userWithId),
         this.http.post(this.medicalHistoryUrl, medicalHistory)
       ]);
     }

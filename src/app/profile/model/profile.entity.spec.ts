@@ -1,7 +1,7 @@
-import { Profile } from './profile.entity';
+import { Profile3D } from './profile.entity';
 
-describe('Profile', () => {
+describe('Profile3D', () => {
   it('should create an instance', () => {
-    expect(new Profile({})).toBeTruthy();
+    expect(new Profile3D({})).toBeTruthy();
   });
 });

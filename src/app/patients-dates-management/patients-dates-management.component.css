@@ -117,7 +117,7 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 87%;
 }
 
 .wizard-card h2 {
@@ -174,16 +174,28 @@ section {
 .date-section {
   grid-column: 1 / 2;
   grid-row: 1;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .time-section {
   grid-column: 2 / 3;
   grid-row: 1;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .doctors-section {
   grid-column: 3 / 4;
   grid-row: 1;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .details-section {
@@ -196,6 +208,10 @@ section {
     0 1.5px 4px rgba(0, 0, 0, 0.04);
   border: none;
   padding: 2rem 2.5rem;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .details-section h2 {
@@ -222,6 +238,10 @@ section {
   border: none;
   padding: 2rem 2.5rem;
   margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 1100px) {

@@ -155,7 +155,7 @@ input,
 input[type="email"],
 input[type="number"],
 input[type="date"] {
-  width: 100%;
+  width: 90%;
   padding: 0.8rem 1.2rem;
   border: 1.5px solid #e0e7ef;
   border-radius: 12px;

@@ -11,6 +11,32 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   validateCredentials(email: string, password: string): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`);
+    // Buscar en register, patients y doctors
+    const register$ = this.http.get<any[]>(`${this.apiUrl}?email=${email}&password=${password}`);
+    const patients$ = this.http.get<any[]>(`http://localhost:3000/patients?email=${email}&password=${password}`);
+    const doctors$ = this.http.get<any[]>(`http://localhost:3000/doctors?email=${email}&password=${password}`);
+    return new Observable(observer => {
+      let found = false;
+      register$.subscribe(users => {
+        if (users.length > 0) {
+          found = true;
+          observer.next(users);
+          observer.complete();
+        } else {
+          patients$.subscribe(patients => {
+            if (patients.length > 0) {
+              found = true;
+              observer.next(patients);
+              observer.complete();
+            } else {
+              doctors$.subscribe(doctors => {
+                observer.next(doctors);
+                observer.complete();
+              });
+            }
+          });
+        }
+      });
+    });
   }
 }
