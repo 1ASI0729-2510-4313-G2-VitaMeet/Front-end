@@ -10,7 +10,18 @@
   <div class="login-container">
     <h2>Register a New Account</h2>
 
-    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <!-- Paso 1: Selección de rol -->
+    <div *ngIf="!role">
+      <label for="role">¿Qué rol deseas registrar?</label>
+      <select id="role" name="role" [(ngModel)]="role" required>
+        <option value="" disabled selected>Selecciona un rol</option>
+        <option value="Paciente">Paciente</option>
+        <option value="Médico">Médico</option>
+      </select>
+    </div>
+
+    <!-- Paso 2: Formulario según rol -->
+    <form *ngIf="role" (ngSubmit)="onRegister()" #registerForm="ngForm">
       <div>
         <label for="username">Username</label>
         <input type="text" id="username" name="username" [(ngModel)]="username" required />
@@ -20,18 +31,20 @@
         <input type="email" id="email" name="email" [(ngModel)]="email" required />
       </div>
       <div>
-        <label for="role">Rol</label>
-        <select id="role" name="role" [(ngModel)]="role" required>
-          <option value="" disabled selected>Selecciona un rol</option>
-          <option value="Paciente">Paciente</option>
-          <option value="Médico">Médico</option>
-        </select>
-      </div>
-      <div>
         <label for="password">Password</label>
         <input type="password" id="password" name="password" [(ngModel)]="password" required />
       </div>
-      <button type="submit" [disabled]="!registerForm.valid">Register</button>
+      <!-- Campos adicionales solo para médicos -->
+      <div *ngIf="role === 'Médico'">
+        <label for="specialty">Especialidad</label>
+        <input type="text" id="specialty" name="specialty" [(ngModel)]="specialty" required />
+        <label for="license">N° Colegiatura</label>
+        <input type="text" id="license" name="license" [(ngModel)]="license" required />
+        <label for="experience">Años de experiencia</label>
+        <input type="number" id="experience" name="experience" [(ngModel)]="experience" min="0" required />
+      </div>
+      <button type="submit" class="btn-primary" [disabled]="!registerForm.valid">Registrar</button>
+      <button type="button" class="btn-secondary" (click)="role=''">Volver</button>
     </form>
 
     <div class="extra-links">

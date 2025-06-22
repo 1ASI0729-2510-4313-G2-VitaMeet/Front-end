@@ -12,7 +12,6 @@
 </nav>
 
 <div class="scheduler-container">
-  <!-- Stepper visual -->
   <div class="stepper">
     <div class="step" [class.active]="step === 1 || !selectedDate">1 <span>Fecha</span></div>
     <div class="step" [class.active]="step === 2 || (selectedDate && !selectedTime)">2 <span>Hora</span></div>
@@ -41,15 +40,14 @@
 
     <section class="doctors-section" *ngIf="selectedDate && selectedTime && !selectedDoctor">
       <h2>Selecciona el doctor</h2>
-      <div class="doctor-search">
-        <input type="text" placeholder="Buscar doctor..." [(ngModel)]="search" />
-        <button title="Filtrar"><span>&#128269;</span></button>
-      </div>
       <div class="doctors-list">
-        <div *ngFor="let doc of filteredDoctors" class="doctor-card">
+        <div *ngFor="let doc of doctors" class="doctor-card">
           <div>
-            <strong>{{ doc.name }}</strong>
-            <p>{{ doc.specialty }}</p>
+            <strong>{{ doc.fullname }}</strong>
+            <p><b>Especialidad:</b> {{ doc.specialty || '-' }}</p>
+            <p *ngIf="doc.license"><b>Colegiatura:</b> {{ doc.license }}</p>
+            <p *ngIf="doc.experience"><b>Experiencia:</b> {{ doc.experience }} años</p>
+            <p *ngIf="doc.email"><b>Email:</b> {{ doc.email }}</p>
           </div>
           <button (click)="selectDoctor(doc)">
             Seleccionar
@@ -64,7 +62,7 @@
       <div class="summary">
         <div>Fecha: {{ selectedDate || '--/--/----' }}</div>
         <div>Hora: {{ selectedTime || '----' }}</div>
-        <div>Doctor: {{ selectedDoctor.name || '--------' }}</div>
+        <div>Doctor: {{ selectedDoctor.fullname || '--------' }}</div>
         <div>Lugar: {{ place }}</div>
       </div>
       <button class="back-btn" (click)="selectedDoctor = null;">Atrás</button>

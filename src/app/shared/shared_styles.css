@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Nunito Sans', Arial, sans-serif; /* Using Nunito Sans as a nice modern sans-serif */
-  background-color: #D7F3F4; /* Light teal background */
+  font-family: "Nunito Sans", Arial, sans-serif; /* Using Nunito Sans as a nice modern sans-serif */
+  background-color: #d7f3f4; /* Light teal background */
   display: flex;
   flex-direction: column; /* To stack page-wrapper and footer */
   align-items: center;
@@ -28,7 +28,7 @@ body {
 }
 
 .login-container {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 35px 40px;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
@@ -39,7 +39,7 @@ body {
 }
 
 .login-container h2 {
-  color: #2C3E50; /* Dark blue-grey for title */
+  color: #2c3e50; /* Dark blue-grey for title */
   font-size: 24px;
   font-weight: 700;
   margin-top: 0;
@@ -55,7 +55,7 @@ form > div {
 form label {
   display: block;
   font-size: 14px;
-  color: #555F6A; /* Medium grey for labels */
+  color: #555f6a; /* Medium grey for labels */
   margin-bottom: 8px;
   font-weight: 400;
 }
@@ -64,7 +64,7 @@ form input[type="text"],
 form input[type="password"] {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #DDE2E8; /* Light grey border */
+  border: 1px solid #dde2e8; /* Light grey border */
   border-radius: 8px;
   box-sizing: border-box; /* Important for width: 100% and padding */
   font-size: 16px;
@@ -74,13 +74,13 @@ form input[type="password"] {
 form input[type="text"]:focus,
 form input[type="password"]:focus {
   outline: none;
-  border-color: #3F72AF; /* Blue border on focus */
+  border-color: #3f72af; /* Blue border on focus */
   box-shadow: 0 0 0 2px rgba(63, 114, 175, 0.2);
 }
 
 form button[type="submit"] {
   width: 100%;
-  background-color: #3F72AF; /* Primary blue for button */
+  background-color: #3f72af; /* Primary blue for button */
   color: white;
   padding: 14px 0;
   border: none;
@@ -94,17 +94,17 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-  background-color: #325B8A; /* Darker blue on hover */
+  background-color: #325b8a; /* Darker blue on hover */
 }
 
 form button[type="submit"]:disabled {
-  background-color: #A0B4C9; /* Lighter, muted color for disabled state */
+  background-color: #a0b4c9; /* Lighter, muted color for disabled state */
   cursor: not-allowed;
 }
 form select {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #DDE2E8;
+  border: 1px solid #dde2e8;
   border-radius: 8px;
   box-sizing: border-box;
   font-size: 16px;
@@ -115,14 +115,14 @@ form select {
 
 form select:focus {
   outline: none;
-  border-color: #3F72AF;
+  border-color: #3f72af;
   box-shadow: 0 0 0 2px rgba(63, 114, 175, 0.2);
 }
 
 form input[type="email"] {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #DDE2E8;
+  border: 1px solid #dde2e8;
   border-radius: 8px;
   box-sizing: border-box;
   font-size: 16px;
@@ -131,7 +131,7 @@ form input[type="email"] {
 
 form input[type="email"]:focus {
   outline: none;
-  border-color: #3F72AF;
+  border-color: #3f72af;
   box-shadow: 0 0 0 2px rgba(63, 114, 175, 0.2);
 }
 .extra-links {
@@ -139,7 +139,7 @@ form input[type="email"]:focus {
 }
 
 .extra-links a {
-  color: #3F72AF; /* Same blue as button */
+  color: #3f72af; /* Same blue as button */
   text-decoration: none;
   display: block; /* Make them stack */
   margin-bottom: 8px;
@@ -151,18 +151,80 @@ form input[type="email"]:focus {
 }
 
 .extra-links a:hover {
-  color: #325B8A; /* Darker blue on hover */
+  color: #325b8a; /* Darker blue on hover */
   text-decoration: underline;
 }
 
 .error {
-  color: #D9534F; /* Red for error messages */
+  color: #d9534f; /* Red for error messages */
   font-size: 14px;
   margin-top: 15px;
   text-align: center;
 }
 
+.btn-primary {
+  width: 100%;
+  background-color: #3f72af;
+  color: white;
+  padding: 14px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+}
+.btn-primary:hover {
+  background-color: #325b8a;
+}
+.btn-primary:disabled {
+  background-color: #a0b4c9;
+  cursor: not-allowed;
+}
 
+.btn-secondary {
+  width: 100%;
+  background-color: #f3f6fa;
+  color: #3f72af;
+  padding: 14px 0;
+  border: 1.5px solid #3f72af;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+}
+.btn-secondary:hover {
+  background: #3f72af;
+  color: #fff;
+  border: 1.5px solid #325b8a;
+}
+
+/* Unificar selects y inputs especiales con los estilos globales */
+select#role,
+input#experience {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #dde2e8;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  appearance: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+select#role:focus,
+input#experience:focus {
+  outline: none;
+  border-color: #3f72af;
+  box-shadow: 0 0 0 2px rgba(63, 114, 175, 0.2);
+}
 
 /* Responsive adjustments if needed */
 @media (max-width: 480px) {

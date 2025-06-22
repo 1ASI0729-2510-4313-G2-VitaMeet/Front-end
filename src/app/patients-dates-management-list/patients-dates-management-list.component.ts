@@ -22,7 +22,14 @@ export class PatientsDatesManagementListComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAppointments().subscribe(data => {
-      this.appointments = data.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+      // Normalizar para que todos los doctores tengan 'fullname'
+      this.appointments = data.map(app => ({
+        ...app,
+        doctor: {
+          ...app.doctor,
+          fullname: app.doctor.fullname || ''
+        }
+      })).sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
     });
     this.profileService.getProfile().subscribe(profile => {
       this.profile = profile;

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 export interface Profile {
   id: string;
-  name: string;
+  fullname: string;
   email: string;
   role: string;
   age?: number;
@@ -14,6 +14,10 @@ export interface Profile {
   diagnosis?: string;
   treatment?: string;
   date?: string;
+  photo?: string; // base64
+  specialty?: string;
+  license?: string;
+  experience?: number;
 }
 
 @Injectable({ providedIn: 'root' })

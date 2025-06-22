@@ -12,13 +12,20 @@
   <h2>Historial Médico</h2>
   <ul>
     <li *ngFor="let patient of patients">
-      <p><strong>Nombre:</strong> {{ patient.name }}</p>
-      <p><strong>Edad:</strong> {{ patient.age }}</p>
-      <p><strong>Teléfono:</strong> {{ patient.phone }}</p>
-      <p><strong>Dirección:</strong> {{ patient.address }}</p>
-      <p><strong>Diagnóstico:</strong> {{ patient.diagnosis }}</p>
-      <p><strong>Tratamiento:</strong> {{ patient.treatment }}</p>
-      <p><strong>Fecha:</strong> {{ patient.date }}</p>
+      <div class="patient-card">
+        <div class="patient-photo" *ngIf="patient.photo">
+          <img [src]="patient.photo" alt="Foto de paciente" />
+        </div>
+        <div class="patient-info">
+          <p><strong>Nombre:</strong> {{ patient.fullname }}</p>
+          <p><strong>Edad:</strong> {{ patient.age }}</p>
+          <p><strong>Teléfono:</strong> {{ patient.phone }}</p>
+          <p><strong>Dirección:</strong> {{ patient.address }}</p>
+          <p><strong>Diagnóstico:</strong> {{ patient.diagnosis }}</p>
+          <p><strong>Tratamiento:</strong> {{ patient.treatment }}</p>
+          <p><strong>Fecha:</strong> {{ patient.date }}</p>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

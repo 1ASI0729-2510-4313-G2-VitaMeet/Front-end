@@ -11,15 +11,15 @@ export class RegisterService {
 
   constructor(private http: HttpClient) {}
 
-  registerUser(user: { id?: string; username: string; email: string; password: string; role?: string }): Observable<any> {
+  registerUser(user: { id?: string; username: string; fullName?: string; email: string; password: string; role?: string; specialty?: string; license?: string; experience?: number }): Observable<any> {
     // Generar un id único si no viene
     const id = user.id || Math.random().toString(16).slice(2);
     const role = user.role || 'Paciente';
     const userWithId = { ...user, id, role };
     // Crear registro en medicalHistory
-    const medicalHistory = {
+    const medicalHistory: any = {
       id,
-      name: user.username,
+      fullname: user.fullName || user.username,
       email: user.email,
       role,
       age: null,
@@ -29,9 +29,15 @@ export class RegisterService {
       treatment: '',
       date: ''
     };
-    return forkJoin([
-      this.http.post(this.apiUrl, userWithId),
-      this.http.post(this.medicalHistoryUrl, medicalHistory)
-    ]);
+    if (role === 'Médico') {
+      // Guardar solo en doctors
+      return this.http.post('http://localhost:3000/doctors', userWithId);
+    } else {
+      // Guardar en patients y en medicalHistory
+      return forkJoin([
+        this.http.post('http://localhost:3000/patients', userWithId),
+        this.http.post(this.medicalHistoryUrl, medicalHistory)
+      ]);
+    }
   }
 }

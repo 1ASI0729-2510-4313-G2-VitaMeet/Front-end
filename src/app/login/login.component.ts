@@ -4,6 +4,9 @@ import { LoginService } from './service/login.service';
 import {FormsModule} from '@angular/forms';
 import { ProfileService, Profile } from '../profile/services/profile.service';
 import { HttpClient } from '@angular/common/http';
+import { ToastComponent } from '../shared/toast.component';
+import { AsyncPipe } from '@angular/common';
+import { ToastService } from '../shared/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css'],
   imports: [
     FormsModule,
-    RouterLink
+    RouterLink,
+    ToastComponent,
+    AsyncPipe
   ]
 })
 export class LoginComponent {
@@ -22,12 +27,13 @@ export class LoginComponent {
     private loginService: LoginService,
     private router: Router,
     private profileService: ProfileService,
-    private http: HttpClient
+    private http: HttpClient,
+    public toast: ToastService
   ) {}
 
   login() {
     if (!this.email.trim() || !this.password.trim()) {
-      alert('Debes ingresar email y contraseña.');
+      this.toast.show('Por favor, complete todos los campos.', 'error');
       return;
     }
     this.loginService.validateCredentials(this.email, this.password).subscribe({
@@ -44,7 +50,7 @@ export class LoginComponent {
               // Si no existe, crearlo y luego usarlo
               const newProfile: Profile = {
                 id: user.id,
-                name: user.name,
+                fullname: user.fullname,
                 email: user.email,
                 role: user.role,
                 age: 0, // Asignar un valor por defecto o solicitar al usuario
@@ -61,10 +67,13 @@ export class LoginComponent {
             }
           });
         } else {
-          alert('Credenciales incorrectas.');
+          this.toast.show('Credenciales incorrectas.', 'error');
         }
       },
-      error: (err) => console.error('Error al iniciar sesión:', err),
+      error: (err) => {
+        this.toast.show('Error al iniciar sesión.', 'error');
+        console.error('Error al iniciar sesión:', err);
+      },
     });
   }
 

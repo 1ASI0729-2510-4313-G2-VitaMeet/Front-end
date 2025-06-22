@@ -16,7 +16,8 @@
   <button (click)="nuevaCita()">Crear nueva cita</button>
   <ul>
     <li *ngFor="let cita of appointments">
-      <strong>{{ cita.date }} {{ cita.time }}</strong> - {{ cita.doctor.name }} ({{ cita.doctor.specialty }}) en {{ cita.place }}
+      <strong>{{ cita.date }} {{ cita.time }}</strong> - {{ cita.doctor.fullname }} ({{ cita.doctor.specialty }}) en {{ cita.place }}
     </li>
   </ul>
 </div>
+<

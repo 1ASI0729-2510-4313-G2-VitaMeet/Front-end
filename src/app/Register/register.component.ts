@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RegisterService } from './service/register.service';
 import {Router, RouterLink} from '@angular/router';
+import { ToastService } from '../shared/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -16,33 +17,49 @@ export class RegisterComponent {
   email = '';
   password = '';
   role = '';
+  // Campos adicionales para médicos
+  specialty = '';
+  license = '';
+  experience: number | null = null;
+  fullName = '';
   errorMessage = '';
   successMessage = '';
 
-  constructor(private registerService: RegisterService, private router: Router) {
+  constructor(private registerService: RegisterService, private router: Router, private toast: ToastService) {
   }
 
   onRegister() {
-    const newUser = {
+    const newUser: any = {
       username: this.username,
       email: this.email,
       password: this.password,
       role: this.role
     };
-
+    if (this.role === 'Médico') {
+      newUser.specialty = this.specialty;
+      newUser.license = this.license;
+      newUser.experience = this.experience;
+      newUser.fullName = this.fullName;
+    }
     this.registerService.registerUser(newUser).subscribe({
       next: () => {
-        this.successMessage = 'Usuario registrado exitosamente';
+        this.toast.show('Usuario registrado exitosamente', 'success');
+        this.successMessage = '';
         this.errorMessage = '';
         this.username = '';
         this.email = '';
         this.password = '';
         this.role = '';
+        this.specialty = '';
+        this.license = '';
+        this.experience = null;
+        this.fullName = '';
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
         console.error(err);
-        this.errorMessage = 'Error al registrar el usuario';
+        this.toast.show('Error al registrar el usuario', 'error');
+        this.errorMessage = '';
         this.successMessage = '';
       },
     });

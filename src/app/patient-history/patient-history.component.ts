@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientHistoryService } from './service/patient-history.service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import { Profile } from '../profile/services/profile.service';
 
@@ -10,6 +10,7 @@ import { Profile } from '../profile/services/profile.service';
   styleUrls: ['./patient-history.component.css'],
   imports: [
     NgForOf,
+    NgIf,
     RouterLink
   ]
 })

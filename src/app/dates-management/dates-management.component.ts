@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatesManagementService } from './service/dates-management.service';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import { ToastService } from '../shared/toast.service';
 
 @Component({
   selector: 'app-dates-management',
@@ -14,9 +15,9 @@ import {RouterLink} from '@angular/router';
   ]
 })
 export class DatesManagementComponent implements OnInit {
-  appointments: { id: number; doctor: {name:string}; date: string; time: string }[] = [];
+  appointments: { id: number; doctor: {fullname:string}; date: string; time: string }[] = [];
 
-  constructor(private datesService: DatesManagementService) {}
+  constructor(private datesService: DatesManagementService, private toast: ToastService) {}
 
   ngOnInit() {
     this.loadAppointments();
@@ -30,26 +31,34 @@ export class DatesManagementComponent implements OnInit {
   }
 
   rescheduleAppointment(id: number) {
-    const newDate = prompt('Ingrese la nueva fecha (YYYY-MM-DD):');
+    // Reemplazar prompt por un input simple
+    const newDate = window.prompt('Ingrese la nueva fecha (YYYY-MM-DD):');
     if (newDate) {
       this.datesService.updateAppointment(id, { date: newDate }).subscribe({
         next: () => {
-          alert('Cita reprogramada con éxito.');
+          this.toast.show('Cita reprogramada con éxito.', 'success');
           this.loadAppointments();
         },
-        error: (err) => console.error('Error al reprogramar cita:', err),
+        error: (err) => {
+          this.toast.show('Error al reprogramar cita.', 'error');
+          console.error('Error al reprogramar cita:', err);
+        },
       });
     }
   }
 
   cancelAppointment(id: number) {
-    if (confirm('¿Está seguro de que desea cancelar esta cita?')) {
+    // Reemplazar confirm por toast y lógica simple
+    if (window.confirm('¿Está seguro de que desea cancelar esta cita?')) {
       this.datesService.deleteAppointment(id).subscribe({
         next: () => {
-          alert('Cita cancelada con éxito.');
+          this.toast.show('Cita cancelada con éxito.', 'success');
           this.loadAppointments();
         },
-        error: (err) => console.error('Error al cancelar cita:', err),
+        error: (err) => {
+          this.toast.show('Error al cancelar cita.', 'error');
+          console.error('Error al cancelar cita:', err);
+        },
       });
     }
   }

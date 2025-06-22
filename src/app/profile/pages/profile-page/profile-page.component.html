@@ -14,54 +14,77 @@
 <div class="profile-container">
   <h2>Mi Perfil</h2>
   <form *ngIf="editMode" (ngSubmit)="guardarCambios()">
-    <div class="form-group">
-      <label>Nombre:</label>
-      <input [(ngModel)]="profile.name" name="name" required />
+    <div class="profile-form-row">
+      <div class="profile-photo-group">
+        <label>Foto de perfil:</label>
+        <div class="photo-preview" *ngIf="profile.photo">
+          <img [src]="profile.photo" alt="Foto de perfil" (click)="photoInput.click()" class="profile-photo-edit" />
+        </div>
+        <input #photoInput type="file" accept="image/*" (change)="onPhotoSelected($event)" style="display:none" />
+        <button type="button" class="btn-photo" (click)="photoInput.click()">Cambiar foto</button>
+        <button type="button" class="btn-photo" (click)="borrarFoto()" *ngIf="profile.photo">Borrar foto</button>
+      </div>
+      <div class="profile-fields">
+        <div class="form-fields-grid">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input [(ngModel)]="profile.fullname" name="name" required />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input [(ngModel)]="profile.email" name="email" required type="email" />
+          </div>
+          <div class="form-group">
+            <label>Rol:</label>
+            <input [value]="profile.role" name="role" readonly disabled />
+          </div>
+          <div class="form-group">
+            <label>Edad:</label>
+            <input [(ngModel)]="profile.age" name="age" type="number" min="0" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono:</label>
+            <input [(ngModel)]="profile.phone" name="phone" />
+          </div>
+          <div class="form-group">
+            <label>Dirección:</label>
+            <input [(ngModel)]="profile.address" name="address" />
+          </div>
+          <div class="form-group">
+            <label>Diagnóstico:</label>
+            <input [(ngModel)]="profile.diagnosis" name="diagnosis" />
+          </div>
+          <div class="form-group">
+            <label>Tratamiento:</label>
+            <input [(ngModel)]="profile.treatment" name="treatment" />
+          </div>
+          <div class="form-group full-width">
+            <label>Fecha:</label>
+            <input [(ngModel)]="profile.date" name="date" type="date" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Guardar</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Email:</label>
-      <input [(ngModel)]="profile.email" name="email" required type="email" />
-    </div>
-    <div class="form-group">
-      <label>Rol:</label>
-      <input [value]="profile.role" name="role" readonly disabled />
-    </div>
-    <div class="form-group">
-      <label>Edad:</label>
-      <input [(ngModel)]="profile.age" name="age" type="number" min="0" />
-    </div>
-    <div class="form-group">
-      <label>Teléfono:</label>
-      <input [(ngModel)]="profile.phone" name="phone" />
-    </div>
-    <div class="form-group">
-      <label>Dirección:</label>
-      <input [(ngModel)]="profile.address" name="address" />
-    </div>
-    <div class="form-group">
-      <label>Diagnóstico:</label>
-      <input [(ngModel)]="profile.diagnosis" name="diagnosis" />
-    </div>
-    <div class="form-group">
-      <label>Tratamiento:</label>
-      <input [(ngModel)]="profile.treatment" name="treatment" />
-    </div>
-    <div class="form-group">
-      <label>Fecha:</label>
-      <input [(ngModel)]="profile.date" name="date" type="date" />
-    </div>
-    <button type="submit" class="btn-primary">Guardar</button>
   </form>
-  <div *ngIf="!editMode">
-    <p><strong>Nombre:</strong> {{ profile.name }}</p>
-    <p><strong>Email:</strong> {{ profile.email }}</p>
-    <p><strong>Rol:</strong> {{ profile.role }}</p>
-    <p><strong>Edad:</strong> {{ profile.age }}</p>
-    <p><strong>Teléfono:</strong> {{ profile.phone }}</p>
-    <p><strong>Dirección:</strong> {{ profile.address }}</p>
-    <p><strong>Diagnóstico:</strong> {{ profile.diagnosis }}</p>
-    <p><strong>Tratamiento:</strong> {{ profile.treatment }}</p>
-    <p><strong>Fecha:</strong> {{ profile.date }}</p>
-    <button class="btn-primary" (click)="activarEdicion()">Editar</button>
+  <div *ngIf="!editMode" class="profile-view-row">
+    <div class="profile-photo-group" *ngIf="profile.photo">
+      <img [src]="profile.photo" alt="Foto de perfil" class="profile-photo-view" />
+    </div>
+    <div class="profile-fields-view">
+      <div class="profile-fields-grid">
+        <p><strong>Nombre:</strong> {{ profile.fullname }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p><strong>Rol:</strong> {{ profile.role }}</p>
+        <p><strong>Edad:</strong> {{ profile.age }}</p>
+        <p><strong>Teléfono:</strong> {{ profile.phone }}</p>
+        <p><strong>Dirección:</strong> {{ profile.address }}</p>
+        <p><strong>Diagnóstico:</strong> {{ profile.diagnosis }}</p>
+        <p><strong>Tratamiento:</strong> {{ profile.treatment }}</p>
+        <p class="full-width"><strong>Fecha:</strong> {{ profile.date }}</p>
+      </div>
+      <button class="btn-primary" (click)="activarEdicion()">Editar</button>
+    </div>
   </div>
 </div>
+<app-toast [message]="(toast.toast$ | async)?.message || ''" [type]="(toast.toast$ | async)?.type || 'info'" [show]="(toast.toast$ | async)?.show ?? false"></app-toast>
