@@ -15,43 +15,14 @@
       "role": "Médico"
     },
     {
-      "id": "995a924a6e0a28",
-      "username": "fab",
-      "email": "fab",
-      "password": "fab123",
-      "role": "Paciente"
-    },
-    {
-      "id": "9d07fdc1bdf5c",
-      "username": "Masi",
-      "email": "masi2",
-      "password": "masi123",
+      "id": "0c2bfb1e26b56",
+      "username": "Fabian",
+      "email": "fab@123",
+      "password": "fabian123",
       "role": "Paciente"
     }
   ],
   "appointments": [
-    {
-      "id": "f88f",
-      "date": "2025-06-26",
-      "time": "09:00",
-      "doctor": {
-        "id": 3,
-        "name": "Dr. María García",
-        "specialty": "Pediatría"
-      },
-      "place": "VitaMeet Clinic"
-    },
-    {
-      "id": "1f42",
-      "date": "2025-06-28",
-      "time": "13:00",
-      "doctor": {
-        "id": 1,
-        "name": "Dr. Ana López",
-        "specialty": "Cardiología"
-      },
-      "place": "VitaMeet Clinic"
-    },
     {
       "id": "3eab",
       "date": "2025-06-27",
@@ -73,43 +44,76 @@
         "specialty": "Cardiología"
       },
       "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "fa71",
+      "date": "2025-06-30",
+      "time": "10:00",
+      "doctor": {
+        "id": 1,
+        "name": "Dr. Ana López",
+        "specialty": "Cardiología"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "f960",
+      "date": "2025-06-27",
+      "time": "17:00",
+      "doctor": {
+        "id": 3,
+        "name": "Dr. María García",
+        "specialty": "Pediatría"
+      },
+      "place": "VitaMeet Clinic"
+    },
+    {
+      "id": "7231",
+      "date": "2025-06-26",
+      "time": "12:00",
+      "doctor": {
+        "id": 1,
+        "name": "Dr. Ana López",
+        "specialty": "Cardiología"
+      },
+      "place": "VitaMeet Clinic"
     }
   ],
   "medicalHistory": [
     {
-      "id": "995a924a6e0a28",
-      "name": "fab",
-      "email": "fab",
+      "id": "0c2bfb1e26b56",
+      "name": "Fabian",
+      "email": "fab@123",
       "role": "Paciente",
-      "age": 23,
-      "phone": "99999999",
-      "address": "sdadas",
-      "diagnosis": "muerte",
-      "treatment": "no se",
-      "date": "2025-07-03"
+      "age": 20,
+      "phone": "1234567",
+      "address": "addres 123",
+      "diagnosis": "I have Flu",
+      "treatment": "Pendiente",
+      "date": "2025-06-30"
     },
     {
-      "id": "9d07fdc1bdf5c",
-      "name": "Masi",
-      "email": "masi2",
-      "role": "Paciente",
-      "age": 21,
-      "phone": "098",
-      "address": "dasd",
-      "diagnosis": "esquizo",
-      "treatment": "nada",
-      "date": "2025-06-21"
-    },
-    {
-      "id": "6f0a",
-      "email": "demo2",
-      "role": "Paciente",
+      "id": "7997",
+      "email": "demo1",
+      "role": "Médico",
       "age": 0,
       "phone": "",
       "address": "",
       "diagnosis": "",
       "treatment": "",
       "date": ""
+    },
+    {
+      "id": "6f0a",
+      "email": "demo2",
+      "role": "Paciente",
+      "age": 26,
+      "phone": "1345",
+      "address": "dasdsa",
+      "diagnosis": "Gripe",
+      "treatment": "Pastillas",
+      "date": "2025-06-21",
+      "name": "Fabian"
     }
   ]
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Appointment, PatientsDatesManagementService } from './service/patients-dates-management.service';
 import { FormsModule } from '@angular/forms';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
+import { Appointment, PatientsDatesManagementService } from '../patients-dates-management/service/patients-dates-management.service';
+import { ProfileService, Profile } from '../profile/services/profile.service';
 
 interface Doctor {
   id: number;
@@ -16,7 +17,8 @@ interface Doctor {
   styleUrls: ['./patients-dates-management.component.css'],
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf,
   ],
   providers: [PatientsDatesManagementService]
 })
@@ -36,6 +38,7 @@ export class PatientsDatesManagementComponent {
   selectedDoctor: Doctor | null = null;
   place = 'VitaMeet Clinic';
   minDate: string;
+  step = 1;
 
   constructor(
     private router: Router,
@@ -45,7 +48,7 @@ export class PatientsDatesManagementComponent {
     this.minDate = today.toISOString().split('T')[0];
   }
 
-  get filteredDoctors() {
+  get filteredDoctors(): Doctor[] {
     return this.doctors.filter(d =>
       d.name.toLowerCase().includes(this.search.toLowerCase()) ||
       d.specialty.toLowerCase().includes(this.search.toLowerCase())
@@ -56,11 +59,7 @@ export class PatientsDatesManagementComponent {
     this.selectedDoctor = doctor;
   }
 
-  cancel() {
-    this.router.navigate(['/patients-dates-management-list']);
-  }
-
-  confirm() {
+  confirmarCita() {
     if (!this.selectedDate || !this.selectedTime || !this.selectedDoctor) return;
     const appointment: Appointment = {
       date: this.selectedDate!,
@@ -71,5 +70,16 @@ export class PatientsDatesManagementComponent {
     this.patientsDatesManagementService.addAppointment(appointment).subscribe(() => {
       this.router.navigate(['/patients-dates-management-list']);
     });
+  }
+
+  cancel() {
+    this.router.navigate(['/patients-dates-management-list']);
+  }
+   editarPerfil() {
+    this.router.navigate(['/profile']);
+  }
+
+  cerrarSesion() {
+    this.router.navigate(['/login']);
   }
 }

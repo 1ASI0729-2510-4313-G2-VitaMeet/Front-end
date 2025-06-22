@@ -1,17 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1d4ed8;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 1px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+}
+
+.navbar-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.icon-btn {
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn:hover {
+  background: #e0e7ff;
+}
+
+.logout-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.logout-btn:hover {
+  background: #2563eb;
+  color: #fff;
+}
 
 .scheduler-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr;
-  grid-template-rows: auto 1fr;
-  gap: 2rem;
-  max-width: 1100px;
+  max-width: 500px;
   margin: 2.5rem auto;
   padding: 2rem;
   background-color: #f7f7f7;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.stepper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  color: #bbb;
+  border-bottom: 2px solid #eee;
+  padding: 4px 12px;
+  min-width: 60px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.step.active {
+  color: #1976d2;
+  border-bottom: 2.5px solid #1976d2;
+}
+.step span {
+  font-size: 0.85em;
+  margin-top: 2px;
+}
+
+.wizard-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  width: 370px;
+  min-height: 340px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: box-shadow 0.2s;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .date-section {
@@ -35,7 +139,8 @@
   margin-top: 1.5rem;
   background: #f8fafc;
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.08),
+    0 1.5px 4px rgba(0, 0, 0, 0.04);
   border: none;
   padding: 2rem 2.5rem;
 }
@@ -56,11 +161,11 @@
   border-color: #050505;
 }
 
-
 .details-section {
   background: #f8fafc;
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.08),
+    0 1.5px 4px rgba(0, 0, 0, 0.04);
   border: none;
   padding: 2rem 2.5rem;
   margin-top: 1.5rem;
@@ -92,7 +197,7 @@ input[type="text"] {
   margin-bottom: 0.5rem;
   box-sizing: border-box;
   background: #f8fafc;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   box-shadow: 0 2px 8px rgba(79, 70, 229, 0.04);
   transition: border 0.2s, box-shadow 0.2s;
 }
@@ -101,14 +206,14 @@ input[type="date"]:focus,
 input[type="text"]:focus {
   border: 1.5px solid #2563eb;
   outline: none;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.10);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
 }
 
 .times {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .times button {
@@ -116,7 +221,7 @@ input[type="text"]:focus {
   background: #f8fafc;
   border: 1.5px solid #e0e7ef;
   border-radius: 12px;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   font-size: 1.08rem;
   font-weight: 500;
   cursor: pointer;
@@ -127,8 +232,6 @@ input[type="text"]:focus {
 .times button.selected {
   background: #2563eb;
   color: #fff;
-  border: 1.5px solid #2563eb;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.13);
 }
 
 .times button:hover:not(.selected),
@@ -155,7 +258,7 @@ input[type="text"]:focus {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   transition: background 0.2s;
 }
 
@@ -168,25 +271,30 @@ input[type="text"]:focus {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .doctor-card {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 10px 16px;
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f8fafc;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.08), 0 1.5px 4px rgba(0,0,0,0.04);
-  border: none;
-  padding: 1.25rem 2rem;
-  transition: transform 0.15s, box-shadow 0.15s;
-  gap: 2rem;
-  margin-bottom: 0.5rem;
+  min-width: 180px;
+  margin-bottom: 8px;
+  width: 100%;
 }
 
 .doctor-card:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.13), 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.13), 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .doctor-card strong {
@@ -214,6 +322,15 @@ input[type="text"]:focus {
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
   transition: background 0.2s, box-shadow 0.2s;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s;
 }
 
 .doctor-card button.selected {
@@ -228,20 +345,15 @@ input[type="text"]:focus {
 }
 
 .summary {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.04);
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 1.2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem 2rem;
-}
-
-.summary div {
-  font-size: 1.05rem;
-  color: #444;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 18px 0;
+  width: 100%;
+  text-align: left;
 }
 
 .actions {
@@ -257,7 +369,7 @@ input[type="text"]:focus {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   font-size: 1.05rem;
 }
 
@@ -274,4 +386,43 @@ input[type="text"]:focus {
 .actions button[disabled] {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.next-btn,
+.back-btn,
+.confirm-btn {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #2563eb;
+  color: #fff;
+  transition: background 0.2s;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+.next-btn:disabled {
+  background: #b3b3b3;
+  cursor: not-allowed;
+}
+.back-btn {
+  background: #e0e7ff;
+  color: #2563eb;
+  margin-left: 1rem;
+}
+.confirm-btn {
+  background: #059669;
+  color: #fff;
+  margin-left: 1rem;
+  background: #43a047;
+  margin-top: 12px;
 }
