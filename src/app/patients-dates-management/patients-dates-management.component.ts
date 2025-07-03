@@ -37,7 +37,8 @@ export class PatientsDatesManagementComponent {
 
   constructor(
     private router: Router,
-    private patientsDatesManagementService: PatientsDatesManagementService
+    private patientsDatesManagementService: PatientsDatesManagementService,
+    private profileService: ProfileService
   ) {
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
@@ -53,22 +54,31 @@ export class PatientsDatesManagementComponent {
 
   confirmarCita() {
     if (!this.selectedDate || !this.selectedTime || !this.selectedDoctor) return;
-    // Guardar todos los datos del médico seleccionado en la cita
-    const appointment: Appointment = {
-      date: this.selectedDate!,
-      time: this.selectedTime!,
-      doctor: {
-        id: this.selectedDoctor.id,
-        fullname: this.selectedDoctor.fullname,
-        specialty: this.selectedDoctor.specialty || '',
-        license: this.selectedDoctor.license || '',
-        experience: this.selectedDoctor.experience || 0,
-        email: this.selectedDoctor.email || ''
-      },
-      place: this.place
-    } as any;
-    this.patientsDatesManagementService.addAppointment(appointment).subscribe(() => {
-      this.router.navigate(['/patients-dates-management-list']);
+    
+    // Obtener información del paciente actual
+    this.profileService.getProfile().subscribe(currentPatient => {
+      const appointment: Appointment = {
+        date: this.selectedDate!,
+        time: this.selectedTime!,
+        doctor: {
+          id: this.selectedDoctor!.id,
+          fullname: this.selectedDoctor!.fullname,
+          specialty: this.selectedDoctor!.specialty || '',
+          license: this.selectedDoctor!.license || '',
+          experience: this.selectedDoctor!.experience || 0,
+          email: this.selectedDoctor!.email || ''
+        },
+        patient: {
+          id: currentPatient.id,
+          fullname: currentPatient.fullname,
+          email: currentPatient.email
+        },
+        place: this.place
+      } as any;
+      
+      this.patientsDatesManagementService.addAppointment(appointment).subscribe(() => {
+        this.router.navigate(['/patients-dates-management-list']);
+      });
     });
   }
 

@@ -13,9 +13,11 @@
   <h2>Gestión de Citas Médicas</h2>
   <ul>
     <li *ngFor="let appointment of appointments">
-      <p><strong>Médico:</strong> {{ appointment.doctor.fullname }}</p>
+      <p><strong>Paciente:</strong> {{ appointment.patient?.fullname || 'No especificado' }}</p>
+      <p *ngIf="appointment.patient?.email"><strong>Email:</strong> {{ appointment.patient?.email }}</p>
       <p><strong>Fecha:</strong> {{ appointment.date }}</p>
       <p><strong>Hora:</strong> {{ appointment.time }}</p>
+      <p *ngIf="appointment.place"><strong>Lugar:</strong> {{ appointment.place }}</p>
       <button (click)="rescheduleAppointment(appointment.id)">Reprogramar</button>
       <button (click)="cancelAppointment(appointment.id)">Cancelar</button>
     </li>

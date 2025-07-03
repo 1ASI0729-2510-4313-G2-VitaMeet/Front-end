@@ -12,6 +12,11 @@ export interface Appointment {
     fullname: string;
     specialty: string;
   };
+  patient?: {
+    id: string;
+    fullname: string;
+    email: string;
+  };
   place: string;
 }
 
@@ -23,6 +28,15 @@ export class PatientsDatesManagementService {
   private patientsUrl = 'http://localhost:3000/patients';
 
   constructor(private http: HttpClient) {}
+
+  getPatientFullName(): string | null {
+    const profile = localStorage.getItem('profile');
+    if (profile) {
+      const parsedProfile = JSON.parse(profile);
+      return parsedProfile.fullname || null;
+    }
+    return null;
+  }
 
   getAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(this.apiUrl);

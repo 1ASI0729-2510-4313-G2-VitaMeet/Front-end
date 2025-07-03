@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatesManagementService } from './service/dates-management.service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import { ToastService } from '../shared/toast.service';
 
@@ -11,11 +11,12 @@ import { ToastService } from '../shared/toast.service';
   styleUrls: ['./dates-management.component.css'],
   imports: [
     NgForOf,
+    NgIf,
     RouterLink
   ]
 })
 export class DatesManagementComponent implements OnInit {
-  appointments: { id: number; doctor: {fullname:string}; date: string; time: string }[] = [];
+  appointments: { id: number; doctor: {fullname:string}; patient?: {id:string, fullname:string, email:string}; date: string; time: string; place?: string }[] = [];
 
   constructor(private datesService: DatesManagementService, private toast: ToastService) {}
 

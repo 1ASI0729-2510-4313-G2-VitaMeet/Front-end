@@ -19,7 +19,27 @@
       "role": "Paciente"
     }
   ],
-  "appointments": [],
+  "appointments": [
+    {
+      "id": "5e35",
+      "date": "2025-07-17",
+      "time": "13:00",
+      "doctor": {
+        "id": "546d23543a57d",
+        "fullname": "Fabian Reyes",
+        "specialty": "Cardiología",
+        "license": "1234567890",
+        "experience": 10,
+        "email": "fab123@gmail.com"
+      },
+      "patient": {
+        "id": "fa77025825d4a8",
+        "fullname": "Carlos Espinoza",
+        "email": "carlos123@gmail.com"
+      },
+      "place": "VitaMeet Clinic"
+    }
+  ],
   "medicalHistory": [
     {
       "id": "546d23543a57d",
@@ -43,8 +63,7 @@
       "diagnosis": "Asma",
       "treatment": "Pastillas y Jarabes",
       "date": "2025-06-15",
-      "fullname": "Carlos Espinoza",
-      "photo": "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww"
+      "fullname": "Carlos Espinoza"
     }
   ],
   "patients": [
