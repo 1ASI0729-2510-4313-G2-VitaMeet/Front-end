@@ -125,4 +125,99 @@ export class EvaluationService {
       });
     });
   }
+
+  // Validar datos de evaluación antes de crear
+  validateEvaluationData(evaluation: DoctorRating): string | null {
+    // Validar rating
+    if (!evaluation.rating || evaluation.rating < 1 || evaluation.rating > 5) {
+      return 'La puntuación debe estar entre 1 y 5';
+    }
+
+    // Validar que el appointmentId sea válido
+    if (!evaluation.appointmentId || evaluation.appointmentId.trim() === '') {
+      return 'ID de cita inválido';
+    }
+
+    // Validar que el doctorId sea válido
+    if (!evaluation.doctorId || evaluation.doctorId.trim() === '') {
+      return 'ID de doctor inválido';
+    }
+
+    // Validar que el patientId sea válido
+    if (!evaluation.patientId || evaluation.patientId.trim() === '') {
+      return 'ID de paciente inválido';
+    }
+
+    // Validar longitud del comentario
+    if (evaluation.comment && evaluation.comment.length > 1000) {
+      return 'El comentario no puede exceder 1000 caracteres';
+    }
+
+    // Validar fecha
+    const evaluationDate = new Date(evaluation.date);
+    const now = new Date();
+    if (evaluationDate > now) {
+      return 'La fecha de evaluación no puede ser futura';
+    }
+
+    // Verificar que la fecha no sea muy antigua (más de 1 año)
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+    if (evaluationDate < oneYearAgo) {
+      return 'La fecha de evaluación es demasiado antigua';
+    }
+
+    return null; // Sin errores
+  }
+
+  // Sanitizar comentario
+  sanitizeComment(comment: string): string {
+    if (!comment) return '';
+    
+    return comment
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/javascript:/gi, '')
+      .replace(/on\w+\s*=/gi, '')
+      .replace(/[<>]/g, '')
+      .trim()
+      .substring(0, 1000); // Limitar a 1000 caracteres
+  }
+
+  // Verificar que el paciente puede evaluar esta cita
+  canPatientEvaluateAppointment(appointmentId: string, patientId: string): Observable<boolean> {
+    return this.http.get<any>(`${this.baseUrl}/appointments/${appointmentId}`).pipe(
+      map(appointment => {
+        if (!appointment) return false;
+        
+        // Verificar que la cita pertenece al paciente
+        if (appointment.patient?.id !== patientId) return false;
+        
+        // Verificar que la cita está completada
+        if (!appointment.completed) return false;
+        
+        // Verificar que la fecha de la cita ya pasó
+        const appointmentDate = new Date(`${appointment.date}T${appointment.time}`);
+        return appointmentDate <= new Date();
+      })
+    );
+  }
+
+  // Versión mejorada de createEvaluation con validaciones
+  createEvaluationSecure(evaluation: DoctorRating): Observable<DoctorRating> {
+    // Validar datos
+    const validationError = this.validateEvaluationData(evaluation);
+    if (validationError) {
+      throw new Error(validationError);
+    }
+
+    // Sanitizar comentario
+    const sanitizedEvaluation = {
+      ...evaluation,
+      comment: this.sanitizeComment(evaluation.comment || ''),
+      feedback: this.sanitizeComment(evaluation.feedback || ''),
+      date: new Date().toISOString().split('T')[0] // Usar fecha actual
+    };
+
+    return this.http.post<DoctorRating>(`${this.baseUrl}/evaluation`, sanitizedEvaluation);
+  }
 }

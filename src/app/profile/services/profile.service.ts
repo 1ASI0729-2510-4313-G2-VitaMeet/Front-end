@@ -35,6 +35,14 @@ export class ProfileService {
 
   setProfile(profile: Profile) {
     console.log('Estableciendo perfil:', profile);
+    
+    // Verificar si el perfil ha cambiado realmente para evitar actualizaciones innecesarias
+    const currentProfile = this.profileSubject.value;
+    if (currentProfile && JSON.stringify(currentProfile) === JSON.stringify(profile)) {
+      console.log('Perfil sin cambios, omitiendo actualización');
+      return;
+    }
+    
     this.profileSubject.next(profile);
     localStorage.setItem('profile', JSON.stringify(profile));
     console.log('Perfil guardado en localStorage');
@@ -54,5 +62,24 @@ export class ProfileService {
         this.setProfile(profile);
       })
     );
+  }
+
+  getCurrentProfile(): Observable<Profile | null> {
+    return new Observable(observer => {
+      const currentProfile = this.profileSubject.value;
+      observer.next(currentProfile);
+      observer.complete();
+    });
+  }
+
+  // Obtener perfil síncrono
+  getCurrentProfileSync(): Profile | null {
+    return this.profileSubject.value;
+  }
+
+  // Método para limpiar la suscripción y evitar memory leaks
+  clearProfile(): void {
+    this.profileSubject.next(null);
+    localStorage.removeItem('profile');
   }
 }

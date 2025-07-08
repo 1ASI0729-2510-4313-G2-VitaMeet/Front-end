@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/frontend-vitameet/browser",
+    "public": "dist/vitameet-2/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -24,7 +24,21 @@ export class PatientsDatesManagementListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.getAppointments().subscribe(data => {
+    // Primero obtener el perfil del usuario actual
+    this.profileService.getCurrentProfile().subscribe(profile => {
+      this.profile = profile;
+      console.log('Perfil del usuario actual:', profile);
+      
+      // Solo cargar citas después de tener el perfil
+      if (profile) {
+        this.loadUserAppointments();
+      }
+    });
+  }
+
+  loadUserAppointments() {
+    this.service.getPatientAppointments().subscribe(data => {
+      console.log('Citas cargadas para el usuario:', data);
       // Normalizar para que todos los doctores tengan 'fullname'
       this.appointments = data.map(app => ({
         ...app,
@@ -36,9 +50,6 @@ export class PatientsDatesManagementListComponent implements OnInit {
       
       // Cargar cache de evaluaciones
       this.loadEvaluationsCache();
-    });
-    this.profileService.getProfile().subscribe(profile => {
-      this.profile = profile;
     });
   }
 
@@ -85,7 +96,10 @@ export class PatientsDatesManagementListComponent implements OnInit {
   editarPerfil() {
     this.router.navigate(['/profile']);
   }
-
+  backToDashboard() {
+    // Ya estamos en la página principal del paciente, pero vamos a refrescar los datos
+    this.loadUserAppointments();
+  }
   cerrarSesion() {
     this.router.navigate(['/login']);
   }

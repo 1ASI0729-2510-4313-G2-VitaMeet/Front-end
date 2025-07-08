@@ -56,6 +56,27 @@ interface AppointmentForEvaluation {
     <div *ngIf="isEvaluationSubmitted" class="success-container">
       <h3>¡Evaluación Enviada!</h3>
       <p>Gracias por tu evaluación. Te ayuda a otros pacientes a tomar mejores decisiones.</p>
+      
+      <div *ngIf="showDoctorEvaluations" class="doctor-evaluations-section">
+        <h4>Otras evaluaciones de Dr. {{ doctorName }}</h4>
+        <div class="evaluations-list">
+          <div *ngFor="let eval of doctorEvaluations" class="evaluation-item">
+            <div class="evaluation-header">
+              <div class="rating-stars">
+                <span *ngFor="let star of [1,2,3,4,5]" 
+                      [class]="star <= eval.rating ? 'star filled' : 'star'">
+                  ★
+                </span>
+                <span class="rating-text">({{ eval.rating }}/5)</span>
+              </div>
+              <span class="evaluation-date">{{ eval.date }}</span>
+            </div>
+            <p class="evaluation-comment">{{ eval.comment || eval.feedback }}</p>
+            <p class="evaluation-patient">- {{ eval.patientName }}</p>
+          </div>
+        </div>
+      </div>
+      
       <p>Serás redirigido automáticamente...</p>
     </div>
 
@@ -96,34 +117,7 @@ interface AppointmentForEvaluation {
           [disabled]="userRating === 0">
           Enviar Evaluación
         </button>
-      </div>
-
-      <div class="other-doctors-section">
-        <h3>Otros Doctores</h3>
-        <div class="doctors-list">
-          <div class="doctor-card" *ngFor="let doctor of otherDoctors">
-            <img [src]="doctor.imageUrl" alt="{{doctor.name}}" class="doctor-image" />
-            <div class="doctor-info">
-              <h4>{{doctor.name}}</h4>
-              <p class="specialty">{{doctor.specialty}}</p>
-              <p class="evaluations">Evaluaciones: {{doctor.evaluations}}</p>
-              <p class="description">{{doctor.description}}</p>
-              <div class="rating-buttons static-rating">
-                <ng-container *ngFor="let star of [1,2,3,4,5]">
-                  <span
-                    class="star"
-                    [class.selected]="star <= doctor.staticRating">
-                    ★
-                  </span>
-                </ng-container>
-              </div>
-              <button class="comments-btn">
-                💬 Comentarios ({{doctor.comments}})
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    
     </div>
   `,
   styleUrls: ['./evaluation.component.css']
@@ -142,6 +136,8 @@ export class EvaluationComponent implements OnInit {
   isEvaluationSubmitted = false;
 
   otherDoctors: Doctor[] = [];
+  doctorEvaluations: any[] = [];
+  showDoctorEvaluations = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -162,8 +158,7 @@ export class EvaluationComponent implements OnInit {
         this.errorMessage = 'Faltan parámetros requeridos (appointmentId y patientId)';
       }
     });
-    
-    this.loadOtherDoctors();
+  
   }
 
   loadAppointmentData() {
@@ -202,54 +197,6 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  loadOtherDoctors() {
-    this.evaluationService.getAllDoctors().subscribe({
-      next: (doctors) => {
-        // Transformar los datos para mostrar
-        const doctorPromises = doctors.map(doctor => 
-          new Promise<Doctor>((resolve) => {
-            this.evaluationService.getDoctorEvaluations(doctor.id).subscribe({
-              next: (evaluations) => {
-                const avgRating = evaluations.length > 0 
-                  ? evaluations.reduce((sum, evaluation) => sum + evaluation.rating, 0) / evaluations.length 
-                  : 0;
-                
-                resolve({
-                  id: doctor.id,
-                  name: doctor.fullname,
-                  specialty: doctor.specialty,
-                  imageUrl: `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 99) + 1}.jpg`,
-                  evaluations: evaluations.length,
-                  description: `${doctor.specialty} con ${doctor.experience} años de experiencia`,
-                  comments: evaluations.length,
-                  staticRating: Math.round(avgRating)
-                });
-              },
-              error: () => {
-                resolve({
-                  id: doctor.id,
-                  name: doctor.fullname,
-                  specialty: doctor.specialty,
-                  imageUrl: `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 99) + 1}.jpg`,
-                  evaluations: 0,
-                  description: `${doctor.specialty} con ${doctor.experience} años de experiencia`,
-                  comments: 0,
-                  staticRating: 0
-                });
-              }
-            });
-          })
-        );
-
-        Promise.all(doctorPromises).then(doctorDisplays => {
-          this.otherDoctors = doctorDisplays;
-        });
-      },
-      error: (error) => {
-        console.error('Error al cargar otros doctores:', error);
-      }
-    });
-  }
 
   setUserRating(rating: number) {
     this.userRating = rating;
@@ -262,9 +209,38 @@ export class EvaluationComponent implements OnInit {
       return;
     }
 
+    // Validaciones de seguridad
     if (this.userRating === 0) {
       this.hasError = true;
       this.errorMessage = 'Por favor, selecciona una puntuación antes de enviar';
+      return;
+    }
+
+    if (this.userRating < 1 || this.userRating > 5) {
+      this.hasError = true;
+      this.errorMessage = 'La puntuación debe estar entre 1 y 5';
+      return;
+    }
+
+    // Validar longitud del comentario
+    if (this.feedback.length > 1000) {
+      this.hasError = true;
+      this.errorMessage = 'El comentario no puede exceder 1000 caracteres';
+      return;
+    }
+
+    // Sanitizar el feedback (eliminar scripts maliciosos básicos)
+    const sanitizedFeedback = this.feedback
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/javascript:/gi, '')
+      .replace(/on\w+\s*=/gi, '')
+      .trim();
+
+    // Verificar que no contenga contenido inapropiado básico
+    const inappropriateWords = ['script', 'eval(', 'alert(', 'document.', 'window.'];
+    if (inappropriateWords.some(word => sanitizedFeedback.toLowerCase().includes(word))) {
+      this.hasError = true;
+      this.errorMessage = 'El comentario contiene contenido no permitido';
       return;
     }
 
@@ -276,8 +252,8 @@ export class EvaluationComponent implements OnInit {
       patientId: this.patientId,
       doctorId: this.appointment.doctor.id,
       rating: this.userRating,
-      comment: this.feedback,
-      feedback: this.feedback,
+      comment: sanitizedFeedback,
+      feedback: sanitizedFeedback,
       date: new Date().toISOString().split('T')[0],
       doctorName: this.appointment.doctor.fullname,
       patientName: this.appointment.patient?.fullname || 'Paciente'
@@ -289,10 +265,13 @@ export class EvaluationComponent implements OnInit {
         this.isEvaluationSubmitted = true;
         this.isLoading = false;
         
-        // Redirigir después de 3 segundos
+        // Cargar evaluaciones del médico para mostrarlas
+        this.loadDoctorEvaluations();
+        
+        // Redirigir después de 5 segundos para dar tiempo a ver las evaluaciones
         setTimeout(() => {
           this.router.navigate(['/patients-dates-management-list']);
-        }, 3000);
+        }, 5000);
       },
       error: (error) => {
         this.hasError = true;
@@ -304,5 +283,19 @@ export class EvaluationComponent implements OnInit {
 
   get doctorName(): string {
     return this.currentDoctor?.fullname || 'Doctor';
+  }
+
+  loadDoctorEvaluations() {
+    if (!this.currentDoctor) return;
+    
+    this.evaluationService.getDoctorEvaluations(this.currentDoctor.id).subscribe({
+      next: (evaluations) => {
+        this.doctorEvaluations = evaluations;
+        this.showDoctorEvaluations = true;
+      },
+      error: (error) => {
+        console.error('Error al cargar evaluaciones del médico:', error);
+      }
+    });
   }
 }

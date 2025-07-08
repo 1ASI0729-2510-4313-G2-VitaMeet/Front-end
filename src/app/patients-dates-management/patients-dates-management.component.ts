@@ -61,14 +61,31 @@ export class PatientsDatesManagementComponent {
     console.log('Doctor:', this.selectedDoctor);
     
     if (!this.selectedDate || !this.selectedTime || !this.selectedDoctor) {
-      console.log('Faltan datos para confirmar la cita');
+      alert('Por favor complete todos los campos requeridos.');
       return;
     }
     
     // Obtener información del paciente actual
-    this.profileService.getProfile().subscribe(currentPatient => {
+    this.profileService.getCurrentProfile().subscribe(currentPatient => {
+      if (!currentPatient) {
+        alert('Error: No se pudo obtener información del paciente.');
+        return;
+      }
+
       console.log('Paciente actual:', currentPatient);
       
+      // Validar que el doctor y el paciente no sean la misma persona
+      if (currentPatient.id === this.selectedDoctor!.id) {
+        alert('No puedes agendar una cita contigo mismo.');
+        return;
+      }
+      
+      // Validar que el usuario actual sea un paciente
+      if (currentPatient.role !== 'Paciente') {
+        alert('Solo los pacientes pueden agendar citas.');
+        return;
+      }
+
       const appointment: Appointment = {
         date: this.selectedDate!,
         time: this.selectedTime!,
@@ -76,9 +93,6 @@ export class PatientsDatesManagementComponent {
           id: this.selectedDoctor!.id,
           fullname: this.selectedDoctor!.fullname,
           specialty: this.selectedDoctor!.specialty || '',
-          license: this.selectedDoctor!.license || '',
-          experience: this.selectedDoctor!.experience || 0,
-          email: this.selectedDoctor!.email || ''
         },
         patient: {
           id: currentPatient.id,
@@ -87,17 +101,38 @@ export class PatientsDatesManagementComponent {
         },
         place: this.place,
         completed: false
-      } as any;
-      
-      console.log('Creando cita:', appointment);
-      
-      this.patientsDatesManagementService.addAppointment(appointment).subscribe({
-        next: (response) => {
-          console.log('Cita creada exitosamente:', response);
-          this.router.navigate(['/patients-dates-management-list']);
+      };
+
+      console.log('Validando reglas de negocio para la cita:', appointment);
+
+      // Validar reglas de negocio antes de crear la cita
+      this.patientsDatesManagementService.validateAppointmentBusinessRules(appointment).subscribe({
+        next: (validationError) => {
+          if (validationError) {
+            alert(`Error de validación: ${validationError}`);
+            return;
+          }
+
+          // Si todas las validaciones pasan, crear la cita
+          console.log('Creando cita:', appointment);
+          this.patientsDatesManagementService.addAppointment(appointment).subscribe({
+            next: (response) => {
+              console.log('Cita creada exitosamente:', response);
+              this.router.navigate(['/patients-dates-management-list']);
+            },
+            error: (error) => {
+              console.error('Error al crear cita:', error);
+              if (error.message && error.message.includes('Ya existe una cita')) {
+                alert('Ya existe una cita con estos datos. Por favor seleccione otra fecha u hora.');
+              } else {
+                alert('Error al crear la cita. Por favor intente nuevamente.');
+              }
+            }
+          });
         },
         error: (error) => {
-          console.error('Error al crear cita:', error);
+          console.error('Error al validar cita:', error);
+          alert('Error al validar la cita. Por favor intente nuevamente.');
         }
       });
     });
@@ -106,7 +141,8 @@ export class PatientsDatesManagementComponent {
   cancel() {
     this.router.navigate(['/patients-dates-management-list']);
   }
-   editarPerfil() {
+  
+  editarPerfil() {
     this.router.navigate(['/profile']);
   }
 

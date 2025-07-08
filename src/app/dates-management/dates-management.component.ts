@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DatesManagementService } from './service/dates-management.service';
 import { EvaluationService, Evaluation } from '../shared/evaluation.service';
 import {NgForOf, NgIf, AsyncPipe} from '@angular/common';
@@ -28,7 +29,8 @@ export class DatesManagementComponent implements OnInit {
   constructor(
     private datesService: DatesManagementService, 
     public toast: ToastService,
-    private evaluationService: EvaluationService
+    private evaluationService: EvaluationService,
+    private router: Router
   ) {}
 
   get toastData$() {
@@ -37,6 +39,14 @@ export class DatesManagementComponent implements OnInit {
 
   ngOnInit() {
     console.log('Iniciando DatesManagementComponent');
+    
+    // Verificar que tengamos un usuario logueado
+    const profile = localStorage.getItem('profile');
+    if (!profile) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    
     this.loadAppointments();
     this.loadEvaluationsCache();
   }
@@ -55,7 +65,7 @@ export class DatesManagementComponent implements OnInit {
 
   loadAppointments() {
     console.log('Cargando citas...');
-    this.datesService.getAppointments().subscribe({
+    this.datesService.getDoctorAppointments().subscribe({
       next: (data) => {
         console.log('Citas cargadas:', data);
         this.appointments = data;
@@ -140,5 +150,9 @@ export class DatesManagementComponent implements OnInit {
 
   hasEvaluation(appointmentId: string): boolean {
     return this.evaluationsCache[appointmentId] || false;
+  }
+
+  cerrarSesion() {
+    this.router.navigate(['/login']);
   }
 }
