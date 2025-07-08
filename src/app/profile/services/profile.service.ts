@@ -34,11 +34,14 @@ export class ProfileService {
   }
 
   setProfile(profile: Profile) {
+    console.log('Estableciendo perfil:', profile);
     this.profileSubject.next(profile);
     localStorage.setItem('profile', JSON.stringify(profile));
+    console.log('Perfil guardado en localStorage');
   }
 
   getProfile(): Observable<Profile> {
+    console.log('Obteniendo perfil actual...');
     return this.profileSubject.asObservable().pipe(
       filter((profile: Profile | null): profile is Profile => profile !== null)
     );

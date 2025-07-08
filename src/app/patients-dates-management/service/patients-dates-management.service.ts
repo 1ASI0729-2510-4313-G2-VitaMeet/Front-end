@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Profile } from '../../profile/services/profile.service';
 
 export interface Appointment {
-  id?: number;
+  id?: string;
   date: string;
   time: string;
   doctor: {
-    id: number;
+    id: string;
     fullname: string;
     specialty: string;
   };
@@ -18,6 +19,7 @@ export interface Appointment {
     email: string;
   };
   place: string;
+  completed?: boolean;
 }
 
 
@@ -39,7 +41,13 @@ export class PatientsDatesManagementService {
   }
 
   getAppointments(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(this.apiUrl);
+    console.log('Obteniendo citas desde el servicio...');
+    return this.http.get<Appointment[]>(this.apiUrl).pipe(
+      map((appointments: Appointment[]) => {
+        console.log('Citas obtenidas:', appointments);
+        return appointments;
+      })
+    );
   }
 
   getDoctors(): Observable<Profile[]> {
@@ -54,7 +62,7 @@ export class PatientsDatesManagementService {
     return this.http.post<Appointment>(this.apiUrl, appointment);
   }
 
-  deleteAppointment(id: number): Observable<void> {
+  deleteAppointment(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 

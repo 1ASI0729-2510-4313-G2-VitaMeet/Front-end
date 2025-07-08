@@ -105,3 +105,81 @@
   color: #1d4ed8;
   font-weight: 600;
 }
+.appointment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: #f9fafb;
+  transition: all 0.2s;
+}
+
+.appointment-item:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.appointment-info {
+  flex: 1;
+}
+
+.appointment-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.evaluate-btn,
+.view-evaluation-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.evaluate-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.evaluate-btn:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.evaluate-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.view-evaluation-btn {
+  background: #10b981;
+  color: white;
+}
+
+.view-evaluation-btn:hover {
+  background: #059669;
+}

@@ -15,9 +15,27 @@
   <h2>Citas agendadas</h2>
   <button (click)="nuevaCita()">Crear nueva cita</button>
   <ul>
-    <li *ngFor="let cita of appointments">
-      <strong>{{ cita.date }} {{ cita.time }}</strong> - {{ cita.doctor.fullname }} ({{ cita.doctor.specialty }}) en {{ cita.place }}
+    <li *ngFor="let cita of appointments" class="appointment-item">
+      <div class="appointment-info">
+        <strong>{{ cita.date }} {{ cita.time }}</strong> - {{ cita.doctor.fullname }} ({{ cita.doctor.specialty }}) en {{ cita.place }}
+        <span class="status" [class.completed]="cita.completed" [class.pending]="!cita.completed">
+          {{ cita.completed ? 'Terminada' : 'Pendiente' }}
+        </span>
+      </div>
+      <div class="appointment-actions" *ngIf="cita.completed">
+        <button 
+          class="evaluate-btn" 
+          (click)="evaluateAppointment(cita.id!)"
+          *ngIf="!hasEvaluation(cita.id!)">
+          Evaluar
+        </button>
+        <button 
+          class="view-evaluation-btn" 
+          (click)="viewEvaluation(cita.id!)"
+          *ngIf="hasEvaluation(cita.id!)">
+          Ver Evaluación
+        </button>
+      </div>
     </li>
   </ul>
 </div>
-<

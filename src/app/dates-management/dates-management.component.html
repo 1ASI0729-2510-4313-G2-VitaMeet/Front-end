@@ -18,11 +18,71 @@
       <p><strong>Fecha:</strong> {{ appointment.date }}</p>
       <p><strong>Hora:</strong> {{ appointment.time }}</p>
       <p *ngIf="appointment.place"><strong>Lugar:</strong> {{ appointment.place }}</p>
-      <button (click)="rescheduleAppointment(appointment.id)">Reprogramar</button>
-      <button (click)="cancelAppointment(appointment.id)">Cancelar</button>
+      <p><strong>Estado:</strong> 
+        <span [class]="appointment.completed ? 'completed-status' : 'pending-status'">
+          {{ appointment.completed ? 'Terminada' : 'Pendiente' }}
+        </span>
+      </p>
+      <div class="appointment-actions">
+        <button (click)="rescheduleAppointment(appointment.id)" [disabled]="appointment.completed">Reprogramar</button>
+        <button (click)="cancelAppointment(appointment.id)" [disabled]="appointment.completed">Cancelar</button>
+        <button 
+          (click)="completeAppointment(appointment.id)" 
+          [disabled]="appointment.completed"
+          class="complete-btn">
+          Terminar cita
+        </button>
+        <button 
+          (click)="viewEvaluation(appointment.id)" 
+          [disabled]="!appointment.completed || !hasEvaluation(appointment.id)"
+          class="evaluation-btn">
+          Evaluación
+        </button>
+      </div>
     </li>
   </ul>
 </div>
+
+<!-- Modal para mostrar evaluación -->
+<div class="modal-overlay" *ngIf="showEvaluationModal" (click)="closeEvaluationModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Evaluación del Médico</h3>
+      <button class="close-btn" (click)="closeEvaluationModal()">×</button>
+    </div>
+    <div class="modal-body" *ngIf="selectedEvaluation">
+      <div class="evaluation-info">
+        <p><strong>Paciente:</strong> {{ selectedEvaluation.patientName }}</p>
+        <p><strong>Médico:</strong> {{ selectedEvaluation.doctorName }}</p>
+        <p><strong>Fecha:</strong> {{ selectedEvaluation.date }}</p>
+        <div class="rating-section">
+          <p><strong>Calificación:</strong></p>
+          <div class="stars">
+            <span *ngFor="let star of [1,2,3,4,5]" 
+                  [class]="star <= selectedEvaluation.rating ? 'star filled' : 'star'">
+              ★
+            </span>
+            <span class="rating-text">({{ selectedEvaluation.rating }}/5)</span>
+          </div>
+        </div>
+        <div class="comment-section">
+          <p><strong>Comentario:</strong></p>
+          <p class="comment-text">{{ selectedEvaluation.comment }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeEvaluationModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Component -->
+<app-toast 
+  [message]="(toast.toast$ | async)?.message || ''"
+  [type]="(toast.toast$ | async)?.type || 'info'"
+  [show]="(toast.toast$ | async)?.show || false">
+</app-toast>
 
 <footer>
   © 2025 MetaDevs. All rights reserved.

@@ -53,7 +53,6 @@ export class RegisterComponent {
         this.specialty = '';
         this.license = '';
         this.experience = null;
-        this.fullName = '';
         this.router.navigate(['/login']);
       },
       error: (err: any) => {

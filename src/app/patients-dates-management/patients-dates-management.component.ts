@@ -40,10 +40,12 @@ export class PatientsDatesManagementComponent {
     private patientsDatesManagementService: PatientsDatesManagementService,
     private profileService: ProfileService
   ) {
+    console.log('Inicializando PatientsDatesManagementComponent');
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
     // Cargar médicos desde la nueva API de doctors
     this.patientsDatesManagementService.getDoctors().subscribe((docs) => {
+      console.log('Médicos cargados:', docs);
       this.doctors = docs;
     });
   }
@@ -53,10 +55,20 @@ export class PatientsDatesManagementComponent {
   }
 
   confirmarCita() {
-    if (!this.selectedDate || !this.selectedTime || !this.selectedDoctor) return;
+    console.log('Confirmando cita...');
+    console.log('Fecha:', this.selectedDate);
+    console.log('Hora:', this.selectedTime);
+    console.log('Doctor:', this.selectedDoctor);
+    
+    if (!this.selectedDate || !this.selectedTime || !this.selectedDoctor) {
+      console.log('Faltan datos para confirmar la cita');
+      return;
+    }
     
     // Obtener información del paciente actual
     this.profileService.getProfile().subscribe(currentPatient => {
+      console.log('Paciente actual:', currentPatient);
+      
       const appointment: Appointment = {
         date: this.selectedDate!,
         time: this.selectedTime!,
@@ -73,11 +85,20 @@ export class PatientsDatesManagementComponent {
           fullname: currentPatient.fullname,
           email: currentPatient.email
         },
-        place: this.place
+        place: this.place,
+        completed: false
       } as any;
       
-      this.patientsDatesManagementService.addAppointment(appointment).subscribe(() => {
-        this.router.navigate(['/patients-dates-management-list']);
+      console.log('Creando cita:', appointment);
+      
+      this.patientsDatesManagementService.addAppointment(appointment).subscribe({
+        next: (response) => {
+          console.log('Cita creada exitosamente:', response);
+          this.router.navigate(['/patients-dates-management-list']);
+        },
+        error: (error) => {
+          console.error('Error al crear cita:', error);
+        }
       });
     });
   }
