@@ -151,7 +151,9 @@
 }
 
 .evaluate-btn,
-.view-evaluation-btn {
+.view-evaluation-btn,
+.complete-btn,
+.cancel-btn {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 6px;
@@ -182,4 +184,56 @@
 
 .view-evaluation-btn:hover {
   background: #059669;
+}
+
+.complete-btn {
+  background: #059669;
+  color: white;
+}
+
+.complete-btn:hover {
+  background: #047857;
+}
+
+.cancel-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
+}
+
+.refresh-btn {
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-btn:hover {
+  background: #4b5563;
+}
+
+.refresh-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.upcoming-note {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+h2 {
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }

@@ -24,17 +24,29 @@
         </span>
       </p>
       <div class="appointment-actions">
-        <button (click)="rescheduleAppointment(appointment.id)" [disabled]="appointment.completed">Reprogramar</button>
-        <button (click)="cancelAppointment(appointment.id)" [disabled]="appointment.completed">Cancelar</button>
+        <button 
+          (click)="rescheduleAppointment(appointment.id)" 
+          [disabled]="appointment.completed"
+          [title]="appointment.completed ? 'No se puede reprogramar una cita terminada' : 'Reprogramar cita'">
+          Reprogramar
+        </button>
+        <button 
+          (click)="cancelAppointment(appointment.id)" 
+          [disabled]="appointment.completed"
+          [title]="appointment.completed ? 'No se puede cancelar una cita terminada' : 'Cancelar cita'">
+          Cancelar
+        </button>
         <button 
           (click)="completeAppointment(appointment.id)" 
           [disabled]="appointment.completed"
+          [title]="appointment.completed ? 'La cita ya está terminada' : 'Terminar cita'"
           class="complete-btn">
-          Terminar cita
+          {{ appointment.completed ? 'Terminada' : 'Terminar cita' }}
         </button>
         <button 
           (click)="viewEvaluation(appointment.id)" 
           [disabled]="!appointment.completed || !hasEvaluation(appointment.id)"
+          [title]="!appointment.completed ? 'Debe terminar la cita primero' : (!hasEvaluation(appointment.id) ? 'No hay evaluación disponible' : 'Ver evaluación')"
           class="evaluation-btn">
           Evaluación
         </button>

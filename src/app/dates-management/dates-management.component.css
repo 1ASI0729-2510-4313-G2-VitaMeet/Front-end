@@ -96,6 +96,19 @@ button:hover {
   opacity: 0.9;
 }
 
+/* Estilos para botones deshabilitados */
+button:disabled {
+  background-color: #6c757d !important;
+  color: #ffffff !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+button:disabled:hover {
+  opacity: 0.6 !important;
+  background-color: #6c757d !important;
+}
+
 /* Estilos específicos para botones */
 .appointment-actions {
   display: flex;

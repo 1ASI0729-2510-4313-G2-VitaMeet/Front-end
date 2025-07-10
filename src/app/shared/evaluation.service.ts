@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface Evaluation {
   id?: string;
@@ -18,27 +19,30 @@ export interface Evaluation {
   providedIn: 'root'
 })
 export class EvaluationService {
-  private apiUrl = 'http://localhost:3000/evaluation';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
   getEvaluations(): Observable<Evaluation[]> {
-    return this.http.get<Evaluation[]>(this.apiUrl);
+    return this.http.get<Evaluation[]>(this.config.getEvaluationsUrl());
   }
 
   getEvaluationByAppointment(appointmentId: string): Observable<Evaluation[]> {
-    return this.http.get<Evaluation[]>(`${this.apiUrl}?appointmentId=${appointmentId}`);
+    if (this.config.isUsingBackend()) {
+      return this.http.get<Evaluation[]>(`${this.config.getEvaluationsUrl()}?appointmentId=${appointmentId}`);
+    } else {
+      return this.http.get<Evaluation[]>(`${this.config.getEvaluationsUrl()}?appointmentId=${appointmentId}`);
+    }
   }
 
   createEvaluation(evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.post<Evaluation>(this.apiUrl, evaluation);
+    return this.http.post<Evaluation>(this.config.getEvaluationsUrl(), evaluation);
   }
 
   updateEvaluation(evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.put<Evaluation>(`${this.apiUrl}/${evaluation.id}`, evaluation);
+    return this.http.put<Evaluation>(`${this.config.getEvaluationsUrl()}/${evaluation.id}`, evaluation);
   }
 
   deleteEvaluation(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.config.getEvaluationsUrl()}/${id}`);
   }
 }

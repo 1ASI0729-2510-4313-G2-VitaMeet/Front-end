@@ -21,7 +21,6 @@ export class RegisterComponent {
   specialty = '';
   license = '';
   experience: number | null = null;
-  fullName = '';
   errorMessage = '';
   successMessage = '';
 
@@ -38,7 +37,7 @@ export class RegisterComponent {
     }
 
     const newUser: any = {
-      fullname: this.fullname.trim(),
+      name: this.fullname.trim(),
       email: this.email.toLowerCase().trim(),
       password: this.password,
       role: this.role
@@ -47,8 +46,7 @@ export class RegisterComponent {
     if (this.role === 'Médico') {
       newUser.specialty = this.specialty.trim();
       newUser.license = this.license.toUpperCase().trim();
-      newUser.experience = this.experience;
-      newUser.fullName = this.fullName.trim();
+      newUser.experience = this.experience
     }
 
     // Verificar si el email ya existe
@@ -88,8 +86,11 @@ export class RegisterComponent {
   }
 
   private proceedWithRegistration(user: any) {
+    console.log('🔍 Datos del usuario antes del registro:', user);
+    
     this.registerService.registerUser(user).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log('✅ Usuario registrado:', response);
         this.toast.show('Usuario registrado exitosamente', 'success');
         this.clearForm();
         setTimeout(() => {
@@ -97,6 +98,7 @@ export class RegisterComponent {
         }, 2000);
       },
       error: (error) => {
+        console.error('❌ Error completo:', error);
         this.errorMessage = 'Error al registrar usuario';
         this.toast.show('Error al registrar usuario', 'error');
       }
@@ -195,7 +197,6 @@ export class RegisterComponent {
     this.specialty = '';
     this.license = '';
     this.experience = null;
-    this.fullName = '';
     this.errorMessage = '';
     this.successMessage = '';
   }

@@ -42,7 +42,31 @@ export class DatesManagementComponent implements OnInit {
     
     // Verificar que tengamos un usuario logueado
     const profile = localStorage.getItem('profile');
+    console.log('📦 Profile en localStorage:', profile);
+    
     if (!profile) {
+      console.log('❌ No hay perfil en localStorage, redirigiendo al login');
+      this.router.navigate(['/login']);
+      return;
+    }
+    
+    try {
+      const parsedProfile = JSON.parse(profile);
+      console.log('👤 Perfil parseado:', parsedProfile);
+      
+      if (!parsedProfile.id) {
+        console.log('❌ Perfil sin ID, redirigiendo al login');
+        this.router.navigate(['/login']);
+        return;
+      }
+      
+      if (parsedProfile.role !== 'Médico') {
+        console.log('❌ Usuario no es médico, redirigiendo');
+        this.router.navigate(['/login']);
+        return;
+      }
+    } catch (error) {
+      console.error('❌ Error parsing profile, redirigiendo al login:', error);
       this.router.navigate(['/login']);
       return;
     }
@@ -65,13 +89,25 @@ export class DatesManagementComponent implements OnInit {
 
   loadAppointments() {
     console.log('Cargando citas...');
+    
+    // Debug: verificar datos del perfil
+    this.datesService.debugProfileData();
+    
+    // Primero hacer test simple
+    this.datesService.getSimpleAppointmentTest().subscribe();
+    
+    // Luego hacer la carga normal
     this.datesService.getDoctorAppointments().subscribe({
-      next: (data) => {
-        console.log('Citas cargadas:', data);
+      next: (data: any) => {
+        console.log('✅ Citas cargadas exitosamente:', data);
+        console.log('📊 Cantidad de citas:', data?.length || 0);
         this.appointments = data;
       },
-      error: (err) => {
-        console.error('Error al cargar citas:', err);
+      error: (err: any) => {
+        console.error('❌ Error al cargar citas:', err);
+        console.error('📋 Status:', err.status);
+        console.error('📄 Body:', err.error);
+        console.error('🌐 URL:', err.url);
         this.toast.show('Error al cargar citas', 'error');
       },
     });
@@ -86,7 +122,7 @@ export class DatesManagementComponent implements OnInit {
           this.toast.show('Cita reprogramada con éxito.', 'success');
           this.loadAppointments();
         },
-        error: (err) => {
+        error: (err: any) => {
           this.toast.show('Error al reprogramar cita.', 'error');
           console.error('Error al reprogramar cita:', err);
         },
@@ -102,7 +138,7 @@ export class DatesManagementComponent implements OnInit {
           this.toast.show('Cita cancelada con éxito.', 'success');
           this.loadAppointments();
         },
-        error: (err) => {
+        error: (err: any) => {
           this.toast.show('Error al cancelar cita.', 'error');
           console.error('Error al cancelar cita:', err);
         },
@@ -112,15 +148,32 @@ export class DatesManagementComponent implements OnInit {
 
   completeAppointment(id: string) {
     if (window.confirm('¿Está seguro de que desea marcar esta cita como terminada?')) {
+      console.log('🔥 Intentando completar cita con ID:', id);
+      
       this.datesService.completeAppointment(id).subscribe({
-        next: () => {
+        next: (response: any) => {
+          console.log('✅ Cita completada exitosamente - Respuesta:', response);
           this.toast.show('Cita terminada con éxito.', 'success');
-          this.loadAppointments();
-          this.loadEvaluationsCache(); // Refresh evaluations cache
+          
+          // Actualizar la cita local inmediatamente
+          const appointmentIndex = this.appointments.findIndex(app => app.id === id);
+          if (appointmentIndex !== -1) {
+            this.appointments[appointmentIndex].completed = true;
+            console.log('🔄 Cita local actualizada:', this.appointments[appointmentIndex]);
+          }
+          
+          // Recargar la lista completa después de un pequeño delay para dar tiempo al backend
+          setTimeout(() => {
+            console.log('🔄 Recargando lista de citas después de completar...');
+            this.loadAppointments();
+            this.loadEvaluationsCache(); // Refresh evaluations cache
+          }, 1000);
         },
-        error: (err) => {
+        error: (err: any) => {
+          console.error('❌ Error al terminar cita:', err);
+          console.error('📋 Status:', err.status);
+          console.error('📄 Body:', err.error);
           this.toast.show('Error al terminar cita.', 'error');
-          console.error('Error al terminar cita:', err);
         },
       });
     }

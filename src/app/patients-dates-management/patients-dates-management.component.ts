@@ -43,10 +43,22 @@ export class PatientsDatesManagementComponent {
     console.log('Inicializando PatientsDatesManagementComponent');
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
-    // Cargar médicos desde la nueva API de doctors
-    this.patientsDatesManagementService.getDoctors().subscribe((docs) => {
-      console.log('Médicos cargados:', docs);
-      this.doctors = docs;
+    
+    // Cargar médicos desde la nueva API de doctors, excluyendo al usuario actual
+    this.profileService.getCurrentProfile().subscribe(currentUser => {
+      this.patientsDatesManagementService.getDoctors().subscribe((docs) => {
+        console.log('Médicos cargados:', docs);
+        
+        // Filtrar al usuario actual de la lista de médicos disponibles
+        if (currentUser) {
+          this.doctors = docs.filter(doctor => 
+            doctor.email !== currentUser.email
+          );
+          console.log('Médicos filtrados (sin usuario actual):', this.doctors);
+        } else {
+          this.doctors = docs;
+        }
+      });
     });
   }
 
@@ -74,15 +86,16 @@ export class PatientsDatesManagementComponent {
 
       console.log('Paciente actual:', currentPatient);
       
-      // Validar que el doctor y el paciente no sean la misma persona
-      if (currentPatient.id === this.selectedDoctor!.id) {
-        alert('No puedes agendar una cita contigo mismo.');
-        return;
-      }
-      
       // Validar que el usuario actual sea un paciente
       if (currentPatient.role !== 'Paciente') {
         alert('Solo los pacientes pueden agendar citas.');
+        return;
+      }
+      
+      // Validar que el doctor y el paciente no sean la misma persona
+      // Usamos solo el email para comparar ya que los IDs pueden solaparse entre roles
+      if (currentPatient.email === this.selectedDoctor!.email) {
+        alert('No puedes agendar una cita contigo mismo.');
         return;
       }
 
@@ -122,10 +135,26 @@ export class PatientsDatesManagementComponent {
             },
             error: (error) => {
               console.error('Error al crear cita:', error);
-              if (error.message && error.message.includes('Ya existe una cita')) {
-                alert('Ya existe una cita con estos datos. Por favor seleccione otra fecha u hora.');
+              
+              // Manejar diferentes tipos de errores con mensajes más específicos
+              if (error.message) {
+                const msg = error.message.toLowerCase();
+                
+                // Errores de validación de negocio del backend
+                if (msg.includes('horario') && msg.includes('ocupado')) {
+                  alert('❌ El horario seleccionado ya está ocupado para este médico. Por favor seleccione otra hora.');
+                } else if (msg.includes('ya existe una cita')) {
+                  alert('❌ Ya existe una cita con estos datos. Por favor seleccione otra fecha u hora.');
+                } else if (msg.includes('endpoint de citas no está disponible')) {
+                  alert('❌ El sistema de citas no está disponible temporalmente. Por favor contacte al administrador del sistema.');
+                } else if (msg.includes('error en los datos')) {
+                  alert('❌ Error en los datos de la cita. Por favor verifique la información e intente nuevamente.');
+                } else {
+                  // Mostrar el mensaje de error tal como viene del backend
+                  alert(`❌ ${error.message}`);
+                }
               } else {
-                alert('Error al crear la cita. Por favor intente nuevamente.');
+                alert('❌ Error al crear la cita. Por favor verifique su conexión e intente nuevamente.');
               }
             }
           });

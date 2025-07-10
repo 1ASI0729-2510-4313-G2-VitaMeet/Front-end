@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, tap, switchMap } from 'rxjs/operators';
+import { filter, tap, switchMap, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { ConfigService } from '../../shared/config.service';
 
 export interface Profile {
   id: string;
@@ -23,9 +24,8 @@ export interface Profile {
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   private profileSubject = new BehaviorSubject<Profile | null>(null);
-  private medicalHistoryUrl = 'http://localhost:3000/medicalHistory';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private config: ConfigService) {
     // Cargar perfil desde localStorage si existe
     const stored = localStorage.getItem('profile');
     if (stored) {
@@ -56,12 +56,59 @@ export class ProfileService {
   }
 
   updateProfile(profile: Profile): Observable<any> {
-    // Actualiza en backend y local
-    return this.http.put(`${this.medicalHistoryUrl}/${profile.id}`, profile).pipe(
-      tap(() => {
-        this.setProfile(profile);
-      })
-    );
+    console.log('🔥 Actualizando perfil - Backend activo:', this.config.isUsingBackend());
+    console.log('📄 Perfil a actualizar:', profile);
+    
+    if (this.config.isUsingBackend()) {
+      // Backend real - adaptar estructura según el rol
+      const url = profile.role === 'Paciente' 
+        ? `${this.config.getPatientsUrl()}/${profile.id}`
+        : `${this.config.getDoctorsUrl()}/${profile.id}`;
+      
+      // Estructura para backend (solo campos necesarios)
+      const backendData: any = {
+        name: profile.fullname,
+        email: profile.email,
+        phone: profile.phone || '',
+        address: profile.address || ''
+      };
+      
+      // Agregar campos específicos según el rol
+      if (profile.role === 'Médico') {
+        backendData.specialty = profile.specialty || '';
+        backendData.license = profile.license || '';
+        backendData.experience = profile.experience || 0;
+      } else {
+        backendData.age = profile.age || null;
+      }
+      
+      console.log('🚀 Payload para backend:', backendData);
+      console.log('🌐 URL destino:', url);
+        
+      return this.http.put(url, backendData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).pipe(
+        tap(response => {
+          console.log('✅ Perfil actualizado exitosamente:', response);
+          this.setProfile(profile);
+        }),
+        catchError(error => {
+          console.error('❌ Error al actualizar perfil:', error);
+          console.error('📋 Status:', error.status);
+          console.error('📄 Body:', error.error);
+          throw error;
+        })
+      );
+    } else {
+      // JSON Server - usar medicalHistory
+      return this.http.put(`${this.config.getMedicalRecordsUrl()}/${profile.id}`, profile).pipe(
+        tap(() => {
+          this.setProfile(profile);
+        })
+      );
+    }
   }
 
   getCurrentProfile(): Observable<Profile | null> {
